@@ -179,14 +179,6 @@
 
     E.cardGrid.innerHTML = slice.map((v, i) => cardHTML(v, i)).join('');
     renderPagination(totalPages);
-
-    /* Intercept card clicks → Action Sheet */
-    E.cardGrid.querySelectorAll('.video-card').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        openSheet(a.href, a.getAttribute('aria-label'));
-      });
-    });
   }
 
   const NO_THUMB = 'images/no-thumbnail.jpg';
@@ -260,14 +252,6 @@
     }, { root: E.swipeTrack, threshold: 0.6 });
 
     E.swipeTrack.querySelectorAll('.swipe-slide').forEach(el => obs.observe(el));
-
-    /* Intercept open buttons → Action Sheet */
-    E.swipeTrack.querySelectorAll('.slide-open').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        openSheet(a.href, a.closest('.swipe-slide').dataset.title);
-      });
-    });
   }
 
   function slideHTML(v, i) {
