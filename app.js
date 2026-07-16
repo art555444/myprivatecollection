@@ -196,7 +196,7 @@
       ? `<img src="${esc(thumb)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('no-img');this.remove();" />`
       : '';
     return `
-<a class="video-card" href="${url}" target="_blank" rel="noopener noreferrer"
+<a class="video-card" href="${url}" target="_blank" rel="noopener"
    aria-label="${esc(v.title || 'Video öffnen')}" style="animation-delay:${delay}ms">
   <div class="card-thumb${!thumb ? ' no-img' : ''}">${imgTag}
     <span class="card-channel">${esc(v.channel || '—')}</span>
@@ -269,7 +269,7 @@
   <div class="slide-info">
     <span class="slide-channel">${esc(v.channel||'Unknown')}</span>
     <h2 class="slide-title">${esc(v.title||'Ohne Titel')}</h2>
-    <a class="slide-open" href="${url}" target="_blank" rel="noopener noreferrer">
+    <a class="slide-open" href="${url}" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
