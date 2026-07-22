@@ -1,6 +1,7 @@
 import glob
 import os
 import re
+import time
 import requests
 from yt_dlp import YoutubeDL
 from yt_dlp.networking.impersonate import ImpersonateTarget
@@ -12,8 +13,9 @@ OUTPUT_FILE = "script_cleaned.js"
 
 THUMBS_DIR = "images/thumbs"
 FALLBACK_THUMBNAIL = "images/no-thumbnail.jpg"
-THUMBNAIL_TIMEOUT = 8
-THUMBNAIL_ATTEMPTS = 2
+THUMBNAIL_TIMEOUT = 10
+THUMBNAIL_ATTEMPTS = 3
+THUMBNAIL_RETRY_DELAY = 1.5
 # Wenn in einem Lauf mehr als dieser Anteil der bestehenden Boxen als "nicht
 # verfügbar" erkannt wird, ist das eher ein Zeichen für ein technisches
 # Problem (Netzwerk, fehlende Abhängigkeit, Blockade) als für echte
@@ -133,7 +135,6 @@ def parse_video_info(info):
     return {
         "title": title or "Ohne Titel",
         "description": description or "Ohne Beschreibung",
-        "thumbnail_url": info.get("thumbnail") or ""
     }
 
 
@@ -145,24 +146,76 @@ def clear_existing_thumb_files(filename_base):
             pass
 
 
-def download_thumbnail(url, filename_base):
+def get_thumbnail_candidates(info):
+    """Liefert Thumbnail-URLs von der besten (yt-dlps eigene Auswahl) bis zur
+    schlechtesten Auflösung. Schlägt die beste URL fehl (z.B. weil genau diese
+    Variante serverseitig blockiert ist), wird automatisch die naechste
+    versucht statt sofort aufzugeben."""
+    candidates = []
+    seen = set()
+
+    best = info.get("thumbnail")
+    if best:
+        candidates.append(best)
+        seen.add(best)
+
+    # yt-dlp sortiert thumbnails von niedrigster zu hoechster Praeferenz
+    for thumb in reversed(info.get("thumbnails") or []):
+        thumb_url = thumb.get("url")
+        if thumb_url and thumb_url not in seen:
+            seen.add(thumb_url)
+            candidates.append(thumb_url)
+
+    return candidates
+
+
+def guess_ext_from_bytes(data):
+    if data.startswith(b"\xff\xd8\xff"):
+        return ".jpg"
+    if data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return ".png"
+    if data.startswith(b"GIF87a") or data.startswith(b"GIF89a"):
+        return ".gif"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return ".webp"
+    return ".jpg"
+
+
+def looks_like_image(data):
+    """Fallback-Erkennung ueber Magic Bytes, falls ein Server bei Bildern
+    einen falschen/generischen Content-Type wie application/octet-stream
+    sendet - das wuerde sonst ein gueltiges Thumbnail unnoetig verwerfen."""
+    if not data or len(data) < 12:
+        return False
+    return guess_ext_from_bytes(data) != ".jpg" or data.startswith(b"\xff\xd8\xff")
+
+
+def download_thumbnail(url, filename_base, referer=None):
     if not url:
         return None
+
+    headers = dict(REQUEST_HEADERS)
+    if referer:
+        headers["Referer"] = referer
 
     try:
         response = requests.get(
             url,
             timeout=THUMBNAIL_TIMEOUT,
-            headers=REQUEST_HEADERS,
+            headers=headers,
             allow_redirects=True
         )
+        if response.status_code != 200:
+            return None
+
         content_type = response.headers.get("Content-Type", "").split(";")[0].strip().lower()
-        if response.status_code != 200 or "image" not in content_type:
+        is_image = content_type.startswith("image/") or looks_like_image(response.content)
+        if not is_image:
             return None
 
         os.makedirs(THUMBS_DIR, exist_ok=True)
         clear_existing_thumb_files(filename_base)
-        ext = EXT_BY_CONTENT_TYPE.get(content_type, ".jpg")
+        ext = EXT_BY_CONTENT_TYPE.get(content_type) or guess_ext_from_bytes(response.content)
         local_path = f"{THUMBS_DIR}/{filename_base}{ext}"
 
         with open(local_path, "wb") as f:
@@ -173,12 +226,46 @@ def download_thumbnail(url, filename_base):
         return None
 
 
-def download_thumbnail_with_retry(url, filename_base, attempts=THUMBNAIL_ATTEMPTS):
-    for _ in range(attempts):
-        local_path = download_thumbnail(url, filename_base)
-        if local_path:
-            return local_path
+def download_thumbnail_via_ytdlp(page_url, filename_base):
+    """Letzter Ausweg: yt-dlp selbst das Thumbnail herunterladen lassen.
+    yt-dlp nutzt dieselbe Chrome-Impersonation/Header-Behandlung, mit der der
+    Seitenzugriff fuer die Video-Infos bereits erfolgreich war. Ein simpler
+    requests-Download ohne diese Technik scheitert bei manchen Hostern am
+    Hotlink-Schutz (403), obwohl das Thumbnail eigentlich erreichbar ist."""
+    os.makedirs(THUMBS_DIR, exist_ok=True)
+    clear_existing_thumb_files(filename_base)
+    outtmpl = f"{THUMBS_DIR}/{filename_base}.%(ext)s"
+    ydl_opts = {
+        "quiet": True,
+        "skip_download": True,
+        "no_warnings": True,
+        "writethumbnail": True,
+        "outtmpl": outtmpl,
+        "socket_timeout": THUMBNAIL_TIMEOUT,
+        "http_headers": REQUEST_HEADERS,
+        "impersonate": ImpersonateTarget.from_str("chrome"),
+    }
+    try:
+        with YoutubeDL(ydl_opts) as ydl:
+            ydl.download([page_url])
+    except Exception:
+        pass
+
+    for f in glob.glob(f"{THUMBS_DIR}/{filename_base}.*"):
+        return f
     return None
+
+
+def download_thumbnail_from_candidates(info, page_url, filename_base):
+    for candidate_url in get_thumbnail_candidates(info):
+        for attempt in range(THUMBNAIL_ATTEMPTS):
+            local_path = download_thumbnail(candidate_url, filename_base, referer=page_url)
+            if local_path:
+                return local_path
+            if attempt < THUMBNAIL_ATTEMPTS - 1:
+                time.sleep(THUMBNAIL_RETRY_DELAY)
+
+    return download_thumbnail_via_ytdlp(page_url, filename_base)
 
 
 def is_local_thumbnail_present(thumbnail):
@@ -339,7 +426,7 @@ def process_existing_objects(existing_objects):
             continue
 
         parsed = parse_video_info(info)
-        local_thumb = download_thumbnail_with_retry(parsed["thumbnail_url"], video_id_field)
+        local_thumb = download_thumbnail_from_candidates(info, url, video_id_field)
 
         if local_thumb:
             obj = replace_field(obj, "thumbnail", local_thumb)
@@ -402,7 +489,7 @@ def process_new_links(existing_objects, existing_urls):
         current_max_id += 1
         video_id_field = f"custom-{current_max_id}"
 
-        thumbnail = download_thumbnail_with_retry(parsed["thumbnail_url"], video_id_field)
+        thumbnail = download_thumbnail_from_candidates(info, url, video_id_field)
         if thumbnail:
             print("Echtes Thumbnail lokal gespeichert")
         else:
