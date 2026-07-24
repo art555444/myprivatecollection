@@ -12,7 +12,10 @@
     query:  '',
     page:   1,
     list:   [],
+    sort:   'asc',
   };
+
+  let ordered = [...videos]; // videos in the currently active sort order
 
   /* ── DOM refs ── */
   const E = {};
@@ -36,6 +39,9 @@
     E.swipeView     = $('swipeView');
     E.searchInput   = $('searchInput');
     E.clearBtn      = $('clearBtn');
+    E.sortAscBtn    = $('sortAscBtn');
+    E.sortDescBtn   = $('sortDescBtn');
+    E.sortRandomBtn = $('sortRandomBtn');
     E.gridStatus    = $('gridStatus');
     E.cardGrid      = $('cardGrid');
     E.pageNav       = $('pageNav');
@@ -60,6 +66,9 @@
     E.swipeBtn.addEventListener('click',  () => setMode('swipe'));
     E.searchInput.addEventListener('input', onSearch);
     E.clearBtn.addEventListener('click',  clearSearch);
+    E.sortAscBtn.addEventListener('click',    () => setSort('asc'));
+    E.sortDescBtn.addEventListener('click',   () => setSort('desc'));
+    E.sortRandomBtn.addEventListener('click', () => setSort('random'));
     E.swipeClose.addEventListener('click', () => setMode('grid'));
 
     /* Sheet */
@@ -93,7 +102,7 @@
     E.lockOverlay.style.display = 'none';
     E.app.hidden = false;
     E.app.removeAttribute('aria-hidden');
-    s.list = [...videos];
+    applyFilter();
     E.countChip.textContent = videos.length + ' Videos';
     renderGrid();
   }
@@ -133,20 +142,56 @@
   }
 
   /* ══════════════════════════════════════
+     SORTING
+     ══════════════════════════════════════ */
+  function idNum(v) {
+    return parseInt(String(v.id || '').replace(/\D/g, ''), 10) || 0;
+  }
+
+  function shuffled(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function setSort(sort) {
+    s.sort = sort;
+    ordered = sort === 'desc'   ? [...videos].sort((a,b) => idNum(b) - idNum(a))
+            : sort === 'random' ? shuffled(videos)
+            :                     [...videos].sort((a,b) => idNum(a) - idNum(b));
+
+    [E.sortAscBtn, E.sortDescBtn, E.sortRandomBtn].forEach(btn => {
+      const active = btn.dataset.sort === sort;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+
+    applyFilter();
+    renderGrid();
+  }
+
+  /* ══════════════════════════════════════
      SEARCH
      ══════════════════════════════════════ */
+  function applyFilter() {
+    const ql = s.query.toLowerCase();
+    s.list = s.query
+      ? ordered.filter(v =>
+          (v.title||'').toLowerCase().includes(ql) ||
+          (v.description||'').toLowerCase().includes(ql) ||
+          (v.channel||'').toLowerCase().includes(ql))
+      : [...ordered];
+    s.page = 1;
+  }
+
   function onSearch() {
     const q = E.searchInput.value.trim();
     s.query = q;
     E.clearBtn.hidden = !q;
-    const ql = q.toLowerCase();
-    s.list = q
-      ? videos.filter(v =>
-          (v.title||'').toLowerCase().includes(ql) ||
-          (v.description||'').toLowerCase().includes(ql) ||
-          (v.channel||'').toLowerCase().includes(ql))
-      : [...videos];
-    s.page = 1;
+    applyFilter();
     E.gridStatus.textContent = q
       ? s.list.length + ' Ergebnis' + (s.list.length !== 1 ? 'se' : '') + ' für „' + q + '"'
       : '';
@@ -155,7 +200,8 @@
 
   function clearSearch() {
     E.searchInput.value = '';
-    s.query = ''; s.list = [...videos]; s.page = 1;
+    s.query = '';
+    applyFilter();
     E.clearBtn.hidden = true;
     E.gridStatus.textContent = '';
     renderGrid();
