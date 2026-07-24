@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" href="icon.png" />
   <link rel="icon" type="image/png" href="icon.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css?v=20260724" />
+  <link rel="stylesheet" href="style.css?v=20260724b" />
 </head>
 <body>
 
@@ -126,24 +126,26 @@
         </div>
 
         <!-- Sort control -->
-        <div class="sort-row" role="group" aria-label="Sortierung">
-          <button class="sort-btn active" id="sortAscBtn" data-sort="asc" aria-pressed="true">
+        <div class="sort-seg" role="group" aria-label="Sortierung">
+          <button class="sort-btn active" id="sortAscBtn" data-sort="asc" aria-pressed="true" title="Nach Nummer aufsteigend sortieren">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="12" y1="19" x2="12" y2="5"/>
-              <polyline points="5 12 12 5 19 12"/>
+              <rect x="4" y="15" width="4" height="5" rx="1"/>
+              <rect x="10" y="10" width="4" height="10" rx="1"/>
+              <rect x="16" y="5" width="4" height="15" rx="1"/>
             </svg>
             <span>1 → N</span>
           </button>
-          <button class="sort-btn" id="sortDescBtn" data-sort="desc" aria-pressed="false">
+          <button class="sort-btn" id="sortDescBtn" data-sort="desc" aria-pressed="false" title="Nach Nummer absteigend sortieren">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="12" y1="5" x2="12" y2="19"/>
-              <polyline points="19 12 12 19 5 12"/>
+              <rect x="4" y="5" width="4" height="15" rx="1"/>
+              <rect x="10" y="10" width="4" height="10" rx="1"/>
+              <rect x="16" y="15" width="4" height="5" rx="1"/>
             </svg>
             <span>N → 1</span>
           </button>
-          <button class="sort-btn" id="sortRandomBtn" data-sort="random" aria-pressed="false">
+          <button class="sort-btn" id="sortRandomBtn" data-sort="random" aria-pressed="false" title="Zufällig sortieren">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="16 3 21 3 21 8"/>
