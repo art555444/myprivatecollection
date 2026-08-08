@@ -2969,7 +2969,7 @@ const videos = [
     thumbnail: "images/thumbs/custom-345.png",
     url: "https://de.pornhub.com/view_video.php?viewkey=69e4e852f338d"
   },
-  {
+{
     id: "custom-346",
     title: "RAW AND ROUGH LESBIAN CUNNILINGUS COMPILATION",
     description: "RAW AND ROUGH LESBIAN CUNNILINGUS COMPILATION",
@@ -2978,7 +2978,7 @@ const videos = [
     thumbnail: "images/thumbs/custom-346.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=6921ddad8ef87"
   },
-  {
+{
     id: "custom-347",
     title: "Camgirl Shoot - Cowgirl Creampie",
     description: "Camgirl Shoot - Cowgirl Creampie",
@@ -2987,7 +2987,7 @@ const videos = [
     thumbnail: "images/thumbs/custom-347.jpg",
     url: "https://www.xnxx.com/video-137inp53/camgirl_shoot_-_cowgirl_creampie"
   },
-  {
+{
     id: "custom-348",
     title: "Cum in throat comp",
     description: "Cum in throat comp",
@@ -2996,7 +2996,7 @@ const videos = [
     thumbnail: "images/thumbs/custom-348.jpg",
     url: "https://www.xnxx.com/video-kdwf95e/cum_in_throat_comp"
   },
-  {
+{
     id: "custom-349",
     title: "StepSiblingsCaught - Slutty Step Sister Wont Stop Till I Cum S7:E7",
     description: "StepSiblingsCaught - Slutty Step Sister Wont Stop Till I Cum S7:E7",
@@ -3005,7 +3005,7 @@ const videos = [
     thumbnail: "images/thumbs/custom-349.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=ph5b8a01b891d93"
   },
-  {
+{
     id: "custom-350",
     title: "You make Athena Faris squirt all over the house.",
     description: "You make Athena Faris squirt all over the house.",
@@ -3013,6 +3013,96 @@ const videos = [
     platform: "custom",
     thumbnail: "images/thumbs/custom-350.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=ph5fd25e4caa9c8"
+  },
+  {
+    id: "custom-351",
+    title: "Group Blowjob Racing, Men Cumming at the Same Time.  Swag.live",
+    description: "Group Blowjob Racing, Men Cumming at the Same Time.  Swag.live",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-351.webp",
+    url: "https://xhamster.com/videos/group-blowjob-racing-men-cumming-at-the-same-time-swag-live-xhLSFbX"
+  },
+  {
+    id: "custom-352",
+    title: "BLOWJOB RACE 2",
+    description: "BJ COMPETITIONS WITH 2 HOT PORNSTARS",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-352.webp",
+    url: "https://xhamster.com/videos/blowjob-race-2-3215670"
+  },
+  {
+    id: "custom-353",
+    title: "Japanese Blowjob Compilation Vol 34",
+    description: "Japanese Blowjob Compilation Vol 34",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-353.webp",
+    url: "https://xhamster.com/videos/japanese-blowjob-compilation-vol-34-xhbnbdg"
+  },
+  {
+    id: "custom-354",
+    title: "Japanese Delights: Youthful Creampies, Incredible Blowjobs, and Passionate Cum Shows",
+    description: "Nippon Pleasures: Blooming Culminations, Remarkable Performances, and Avid Displays - Immerse yourself in Nipponese pleasure, from breathtaking per...",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-354.webp",
+    url: "https://xhamster.com/videos/japanese-delights-youthful-creampies-incredible-blowjobs-and-passionate-cum-shows-xh1AQeP"
+  },
+  {
+    id: "custom-355",
+    title: "100 Guys Cum in Asian Girl Mouth",
+    description: "100 Guys Cum in Asian Girl Mouth",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-355.webp",
+    url: "https://xhamster.com/videos/100-guys-cum-in-asian-girl-mouth-xhuQoBI"
+  },
+  {
+    id: "custom-356",
+    title: "35x Sweet Femdom Cumshots from AdultPrime",
+    description: "AdultPrime.com video! Lola Fae, Sadie Holmes, and Janice Griffith are femdoms that make slaves cum all over. Enjoy the biggest platform with 4K Pro...",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-356.webp",
+    url: "https://xhamster.com/videos/35x-sweet-femdom-cumshots-from-adultprime-xhQ2Nl6"
+  },
+  {
+    id: "custom-357",
+    title: "I had to name everyone who has ever fucked me! Dirty Talk",
+    description: "Does dirty talk turn women on? Oh yes it does and it's even really awesome!!! Especially when I'm getting banged and have to talk about all the coc...",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-357.webp",
+    url: "https://xhamster.com/videos/i-had-to-name-everyone-who-has-ever-fucked-me-dirty-talk-xh4msBO"
+  },
+  {
+    id: "custom-358",
+    title: "Are you loser too stupid to fuck my ass?",
+    description: "Have you ever seen a woman get mad because she was NOT fucked in the ass? Here you can experience a really disappointed and angry wife who would li...",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-358.webp",
+    url: "https://xhamster.com/videos/are-you-loser-too-stupid-to-fuck-my-ass-xh82Mlm"
+  },
+  {
+    id: "custom-359",
+    title: "Came into the pussy without fucking",
+    description: "Fill the cunt with sperm without fucking, how does that work? Interestingly, he must have really liked this type of juicing because there was a lot...",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-359.webp",
+    url: "https://xhamster.com/videos/came-into-the-pussy-without-fucking-xh8tVCC"
+  },
+  {
+    id: "custom-360",
+    title: "VISIT-X German Lexy Roxx fucks friend doggy at public beach",
+    description: "VISIT-X Schlankes Pornstar Redhead LexyRoxx fickt nach Blowjob besten Freund Doggy Style am See in der Oeffentlichkeit bis er in ihr kommt",
+    channel: "xHamster",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-360.webp",
+    url: "https://xhamster.com/videos/visit-x-german-lexy-roxx-fucks-friend-doggy-at-public-beach-xhc4Trw"
   }
 ];
 
