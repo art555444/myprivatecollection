@@ -237,15 +237,14 @@ body {
 }
 
 .sort-btn {
-  flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-  min-height: 38px;
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  min-height: 44px;
   background: none; border: none; border-radius: 8px;
-  color: var(--fg-2); font-size: 12.5px; font-weight: 500;
-  padding: 8px 6px; cursor: pointer; white-space: nowrap;
+  color: var(--fg-2); cursor: pointer;
   transition: background .2s var(--ease), color .2s var(--ease), transform .15s var(--ease);
   -webkit-tap-highlight-color: transparent;
 }
-.sort-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.sort-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 .sort-btn:not(.active):hover { background: var(--bg-4); color: var(--fg); }
 .sort-btn.active { background: rgba(255,255,255,.95); color: #000; }
 .sort-btn:active { transform: scale(.94); }
