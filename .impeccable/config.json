@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(.34, 1.56, .64, 1)",
+        "files": [
+          "/mnt/c/Users/jan/Documents/Projekte/MyPrivateCollection/style.css"
+        ],
+        "createdAt": "2026-08-14T13:21:14.004Z",
+        "reason": "pre-existing --spring token used across 7 unrelated components (cards, buttons) for press feedback; not touched or introduced in this sort-icon task"
+      }
+    ]
+  }
+}
