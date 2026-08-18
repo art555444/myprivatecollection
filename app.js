@@ -9,7 +9,7 @@
   // Fine-grained GitHub PAT, NUR "Issues: Read and write" auf dieses eine Repo
   // (kein Code-/Datei-Zugriff, keine anderen Repos) — bewusst eingeschränkter
   // Scope, siehe adaptive-skipping-teacup.md. Vor Nutzung ersetzen.
-  const GITHUB_FLAG_TOKEN = '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';
+  const GITHUB_FLAG_TOKEN = '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';
   const GITHUB_REPO       = 'art555444/myprivatecollection';
   const FLAG_LABEL        = 'loeschanfrage';
   const FLAG_STORAGE_KEY  = 'mpc_flagged_ids';
