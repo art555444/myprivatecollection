@@ -6,13 +6,22 @@
   const PER_PAGE  = 24;
   const FALLBACK  = 'icon.png'; // placeholder when thumb unavailable
 
+  // Fine-grained GitHub PAT, NUR "Issues: Read and write" auf dieses eine Repo
+  // (kein Code-/Datei-Zugriff, keine anderen Repos) — bewusst eingeschränkter
+  // Scope, siehe adaptive-skipping-teacup.md. Vor Nutzung ersetzen.
+  const GITHUB_FLAG_TOKEN = 'github_pat_REPLACE_ME';
+  const GITHUB_REPO       = 'art555444/myprivatecollection';
+  const FLAG_LABEL        = 'loeschanfrage';
+  const FLAG_STORAGE_KEY  = 'mpc_flagged_ids';
+
   /* ── State ── */
   const s = {
-    mode:   'grid',
-    query:  '',
-    page:   1,
-    list:   [],
-    sort:   'asc',
+    mode:    'grid',
+    query:   '',
+    page:    1,
+    list:    [],
+    sort:    'asc',
+    flagged: new Set(),
   };
 
   let ordered = [...videos]; // videos in the currently active sort order
@@ -58,6 +67,19 @@
     E.sheetFirefox  = $('sheetFirefox');
     E.sheetCancel   = $('sheetCancel');
     E.copyToast     = $('copyToast');
+    // Flagging
+    E.flagBar          = $('flagBar');
+    E.flagBarCount     = $('flagBarCount');
+    E.flagBarDiscard   = $('flagBarDiscard');
+    E.flagBarSend      = $('flagBarSend');
+    E.flagBackdrop     = $('flagBackdrop');
+    E.flagConfirmSheet = $('flagConfirmSheet');
+    E.flagConfirmTitle = $('flagConfirmTitle');
+    E.flagConfirmSend  = $('flagConfirmSend');
+    E.flagConfirmCancel= $('flagConfirmCancel');
+    E.flagToast        = $('flagToast');
+
+    s.flagged = loadFlaggedIds();
 
     /* Events */
     E.lockForm.addEventListener('submit', handleUnlock);
@@ -76,6 +98,15 @@
     E.sheetCancel.addEventListener('click', closeSheet);
     E.sheetCopy.addEventListener('click',  handleCopy);
     document.addEventListener('keydown',   onKey);
+
+    /* Flagging */
+    E.cardGrid.addEventListener('click', onFlagClick);
+    E.swipeTrack.addEventListener('click', onFlagClick);
+    E.flagBarSend.addEventListener('click', openFlagConfirm);
+    E.flagBarDiscard.addEventListener('click', clearAllFlags);
+    E.flagBackdrop.addEventListener('click', closeFlagConfirm);
+    E.flagConfirmCancel.addEventListener('click', closeFlagConfirm);
+    E.flagConfirmSend.addEventListener('click', submitFlagRequest);
 
     E.lockInput.focus();
   }
@@ -105,6 +136,7 @@
     applyFilter();
     E.countChip.textContent = videos.length + ' Videos';
     renderGrid();
+    updateFlagBar();
   }
 
   function lock() {
@@ -115,6 +147,7 @@
     E.lockError.classList.remove('on');
     s.query = ''; s.page = 1; s.list = [];
     closeSheet();
+    closeFlagConfirm();
     if (s.mode === 'swipe') exitSwipe();
     E.lockInput.focus();
   }
@@ -134,6 +167,7 @@
     E.swipeView.hidden = isGrid;
     E.swipeView.setAttribute('aria-hidden', String(isGrid));
     if (isGrid) { exitSwipe(); } else { document.body.style.overflow = 'hidden'; renderSwipe(); }
+    updateFlagBar();
   }
 
   function exitSwipe() {
@@ -235,23 +269,39 @@
   }
 
   function cardHTML(v, i) {
-    const url   = esc(v.url || '#');
-    const thumb = thumbURL(v);
-    const delay = Math.min(i * 22, 220);
+    const url     = esc(v.url || '#');
+    const thumb   = thumbURL(v);
+    const delay   = Math.min(i * 22, 220);
+    const id      = esc(v.id || '');
+    const flagged = isFlagged(v.id);
     const imgTag = thumb
       ? `<img src="${esc(thumb)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('no-img');this.remove();" />`
       : '';
     return `
-<a class="video-card" href="${url}" target="_blank" rel="noopener"
-   aria-label="${esc(v.title || 'Video öffnen')}" style="animation-delay:${delay}ms">
-  <div class="card-thumb${!thumb ? ' no-img' : ''}">${imgTag}
-    <span class="card-channel">${esc(v.channel || '—')}</span>
-    <span class="card-play" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    </span>
-  </div>
-  <div class="card-body"><h3 class="card-title">${esc(v.title || 'Ohne Titel')}</h3></div>
-</a>`;
+<div class="video-card" style="animation-delay:${delay}ms">
+  <a class="card-link" href="${url}" target="_blank" rel="noopener"
+     aria-label="${esc(v.title || 'Video öffnen')}">
+    <div class="card-thumb${!thumb ? ' no-img' : ''}">${imgTag}
+      <span class="card-channel">${esc(v.channel || '—')}</span>
+      <span class="card-play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+    </div>
+    <div class="card-body"><h3 class="card-title">${esc(v.title || 'Ohne Titel')}</h3></div>
+  </a>
+  ${flagBtnHTML('card-flag', id, flagged)}
+</div>`;
+  }
+
+  function flagBtnHTML(cls, id, flagged) {
+    return `<button class="${cls}${flagged ? ' is-flagged' : ''}" data-flag-id="${id}"
+        aria-label="${flagged ? 'Markierung entfernen' : 'Zur Löschung markieren'}" aria-pressed="${flagged}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+      <line x1="4" y1="22" x2="4" y2="15"/>
+    </svg>
+  </button>`;
   }
 
   /* ── Pagination ── */
@@ -301,10 +351,12 @@
   }
 
   function slideHTML(v, i) {
-    const url   = esc(v.url || '#');
-    const thumb = thumbURL(v);
-    const bg    = thumb ? esc(thumb) : '';
+    const url     = esc(v.url || '#');
+    const thumb   = thumbURL(v);
+    const bg      = thumb ? esc(thumb) : '';
     const bgStyle = bg ? ` style="background-image:url('${bg}')"` : '';
+    const id      = esc(v.id || '');
+    const flagged = isFlagged(v.id);
     const imgTag  = thumb
       ? `<img src="${esc(thumb)}" alt="${esc(v.title||'')}" loading="${i<3?'eager':'lazy'}" referrerpolicy="no-referrer" onerror="this.style.display='none';" />`
       : '';
@@ -312,6 +364,7 @@
 <article class="swipe-slide" data-idx="${i}" data-title="${esc(v.title||'')}" aria-label="${esc(v.title||'Video')}">
   <div class="slide-bg"${bgStyle}></div>
   <div class="slide-media">${imgTag}</div>
+  ${flagBtnHTML('slide-flag', id, flagged)}
   <div class="slide-info">
     <span class="slide-channel">${esc(v.channel||'Unknown')}</span>
     <h2 class="slide-title">${esc(v.title||'Ohne Titel')}</h2>
@@ -392,6 +445,7 @@
   /* ── Keyboard ── */
   function onKey(e) {
     if (e.key === 'Escape') {
+      if (E.flagConfirmSheet.classList.contains('on')) { closeFlagConfirm(); return; }
       if (E.sheet.classList.contains('on')) { closeSheet(); return; }
       if (s.mode === 'swipe') setMode('grid');
       return;
@@ -404,6 +458,149 @@
     if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  {
       e.preventDefault(); E.swipeTrack.scrollBy({ top: -h, behavior: 'smooth' });
     }
+  }
+
+  /* ══════════════════════════════════════
+     FLAGGING ("Zur Löschung markieren")
+     ══════════════════════════════════════ */
+  function loadFlaggedIds() {
+    try {
+      const raw = localStorage.getItem(FLAG_STORAGE_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return new Set(Array.isArray(arr) ? arr : []);
+    } catch (e) {
+      return new Set();
+    }
+  }
+
+  function saveFlaggedIds() {
+    try {
+      localStorage.setItem(FLAG_STORAGE_KEY, JSON.stringify([...s.flagged]));
+    } catch (e) { /* localStorage nicht verfügbar — Flags bleiben nur für diese Sitzung */ }
+  }
+
+  function isFlagged(id) {
+    return s.flagged.has(id);
+  }
+
+  function onFlagClick(e) {
+    const btn = e.target.closest('.card-flag, .slide-flag');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFlag(btn.dataset.flagId);
+  }
+
+  function toggleFlag(id) {
+    if (!id) return;
+    const wasFlagged = s.flagged.has(id);
+    if (wasFlagged) { s.flagged.delete(id); } else { s.flagged.add(id); }
+    saveFlaggedIds();
+    const nowFlagged = !wasFlagged;
+    document.querySelectorAll(`[data-flag-id="${CSS.escape(id)}"]`).forEach(el => {
+      el.classList.toggle('is-flagged', nowFlagged);
+      el.setAttribute('aria-pressed', String(nowFlagged));
+      el.setAttribute('aria-label', nowFlagged ? 'Markierung entfernen' : 'Zur Löschung markieren');
+    });
+    updateFlagBar();
+  }
+
+  function clearAllFlags() {
+    s.flagged.clear();
+    saveFlaggedIds();
+    document.querySelectorAll('.card-flag.is-flagged, .slide-flag.is-flagged').forEach(el => {
+      el.classList.remove('is-flagged');
+      el.setAttribute('aria-pressed', 'false');
+      el.setAttribute('aria-label', 'Zur Löschung markieren');
+    });
+    updateFlagBar();
+  }
+
+  function updateFlagBar() {
+    const n = s.flagged.size;
+    E.flagBarCount.textContent = n + ' markiert';
+    E.flagBar.classList.toggle('on', n > 0);
+    E.flagBar.classList.toggle('is-swipe', s.mode === 'swipe');
+  }
+
+  function flaggedItems() {
+    return videos.filter(v => s.flagged.has(v.id));
+  }
+
+  function openFlagConfirm() {
+    const items = flaggedItems();
+    if (!items.length) return;
+    E.flagConfirmTitle.textContent =
+      items.length + ' Video' + (items.length !== 1 ? 's' : '') + ' zur Löschung melden?';
+
+    E.flagConfirmSheet.hidden = false;
+    E.flagConfirmSheet.removeAttribute('aria-hidden');
+    E.flagBackdrop.setAttribute('aria-hidden', 'false');
+
+    requestAnimationFrame(() => {
+      E.flagBackdrop.classList.add('on');
+      E.flagConfirmSheet.classList.add('on');
+    });
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFlagConfirm() {
+    E.flagBackdrop.classList.remove('on');
+    E.flagConfirmSheet.classList.remove('on');
+    setTimeout(() => {
+      E.flagConfirmSheet.hidden = true;
+      E.flagConfirmSheet.setAttribute('aria-hidden', 'true');
+      E.flagBackdrop.setAttribute('aria-hidden', 'true');
+      if (s.mode !== 'swipe') document.body.style.overflow = '';
+    }, 320);
+  }
+
+  async function submitFlagRequest() {
+    const items = flaggedItems();
+    if (!items.length) { closeFlagConfirm(); return; }
+
+    const originalLabel = E.flagConfirmSend.innerHTML;
+    E.flagConfirmSend.disabled = true;
+    E.flagConfirmSend.textContent = 'Wird gesendet…';
+
+    const lines = items.map(v => `- [${v.id}] ${v.title || 'Ohne Titel'} — ${v.url}`).join('\n');
+    const body  = 'Folgende Videos wurden über die Website zur Löschung markiert:\n\n' + lines;
+
+    try {
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues`, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + GITHUB_FLAG_TOKEN,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: `Löschanfrage: ${items.length} Video${items.length !== 1 ? 's' : ''}`,
+          body,
+          labels: [FLAG_LABEL],
+        }),
+      });
+
+      if (!res.ok) throw new Error('GitHub API ' + res.status);
+
+      clearAllFlags();
+      closeFlagConfirm();
+      showFlagToast('Anfrage gesendet — danke!', false);
+    } catch (err) {
+      showFlagToast('Senden fehlgeschlagen — bitte erneut versuchen', true);
+    } finally {
+      E.flagConfirmSend.disabled = false;
+      E.flagConfirmSend.innerHTML = originalLabel;
+    }
+  }
+
+  let _flagToastTimer;
+  function showFlagToast(msg, isError) {
+    E.flagToast.textContent = msg;
+    E.flagToast.classList.toggle('is-error', !!isError);
+    E.flagToast.classList.add('on');
+    clearTimeout(_flagToastTimer);
+    _flagToastTimer = setTimeout(() => E.flagToast.classList.remove('on'), 3200);
   }
 
   /* ── HTML escape ── */

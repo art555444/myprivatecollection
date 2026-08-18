@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" href="icon.png" />
   <link rel="icon" type="image/png" href="icon.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css?v=20260724b" />
+  <link rel="stylesheet" href="style.css?v=20260818" />
 </head>
 <body>
 
@@ -252,7 +252,47 @@
     Link kopiert — in privatem Tab einfügen
   </div>
 
+  <!-- ═══ FLAG BAR (Löschanfrage sammeln) ═══ -->
+  <div class="flag-bar" id="flagBar">
+    <span class="flag-bar-count" id="flagBarCount">0 markiert</span>
+    <div class="flag-bar-actions">
+      <button class="flag-bar-discard" id="flagBarDiscard">Verwerfen</button>
+      <button class="flag-bar-send" id="flagBarSend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        Anfrage senden
+      </button>
+    </div>
+  </div>
+
+  <!-- Flag confirm sheet -->
+  <div class="sheet-backdrop" id="flagBackdrop" aria-hidden="true"></div>
+  <div class="action-sheet" id="flagConfirmSheet" role="dialog" aria-modal="true"
+       aria-label="Löschanfrage senden" hidden>
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <p class="sheet-title" id="flagConfirmTitle"></p>
+
+    <div class="sheet-actions">
+      <button class="sheet-btn sheet-btn--primary" id="flagConfirmSend">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        Anfrage senden
+      </button>
+    </div>
+
+    <button class="sheet-cancel" id="flagConfirmCancel">Abbrechen</button>
+  </div>
+
+  <!-- Flag toast (Erfolg/Fehler) -->
+  <div class="copy-toast" id="flagToast" role="status" aria-live="polite"></div>
+
   <script src="script_cleaned.js?v=20260617"></script>
-  <script src="app.js?v=20260724"></script>
+  <script src="app.js?v=20260818"></script>
 </body>
 </html>
