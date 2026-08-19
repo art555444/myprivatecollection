@@ -10,9 +10,6 @@ import os
 import re
 import time
 import requests
-from yt_dlp import YoutubeDL
-from yt_dlp.networking.impersonate import ImpersonateTarget
-from yt_dlp.utils import YoutubeDLError
 
 INPUT_JS_FILE = "script_cleaned.js"
 OUTPUT_FILE = "script_cleaned.js"
@@ -86,6 +83,8 @@ def truncate_text(text, max_length=150):
 
 
 def get_ydl():
+    from yt_dlp import YoutubeDL
+    from yt_dlp.networking.impersonate import ImpersonateTarget
     return YoutubeDL({
         "quiet": True,
         "skip_download": True,
@@ -102,6 +101,7 @@ def verify_environment():
     Chrome-Impersonation technisch nicht nutzen kann (z.B. curl_cffi fehlt/kaputt).
     Ohne diesen Check wuerde jeder Verfuegbarkeits-Check fehlschlagen und jede
     Box faelschlich als "nicht verfuegbar" geloescht werden."""
+    from yt_dlp.utils import YoutubeDLError
     try:
         with get_ydl():
             pass
