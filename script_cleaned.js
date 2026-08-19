@@ -3069,15 +3069,6 @@ const videos = [
     url: "https://xhamster.com/videos/35x-sweet-femdom-cumshots-from-adultprime-xhQ2Nl6"
   },
 {
-    id: "custom-357",
-    title: "I had to name everyone who has ever fucked me! Dirty Talk",
-    description: "Does dirty talk turn women on? Oh yes it does and it's even really awesome!!! Especially when I'm getting banged and have to talk about all the coc...",
-    channel: "xHamster",
-    platform: "custom",
-    thumbnail: "images/thumbs/custom-357.webp",
-    url: "https://xhamster.com/videos/i-had-to-name-everyone-who-has-ever-fucked-me-dirty-talk-xh4msBO"
-  },
-{
     id: "custom-358",
     title: "Are you loser too stupid to fuck my ass?",
     description: "Have you ever seen a woman get mad because she was NOT fucked in the ass? Here you can experience a really disappointed and angry wife who would li...",
