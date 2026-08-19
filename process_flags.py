@@ -19,7 +19,6 @@ from link_common import (
 REPO = "art555444/myprivatecollection"
 LABEL = "loeschanfrage"
 GH_ACCOUNT = "art555444"
-GH_ACCOUNT_BACK = "artesyjany"
 
 
 def run_gh(args):
@@ -86,58 +85,55 @@ def commit_and_push(removed, missing):
 
 def main():
     switch_gh_account(GH_ACCOUNT)
-    try:
-        print_section("OFFENE LÖSCHANFRAGEN")
-        issues = fetch_open_issues()
-        if not issues:
-            print("Keine offenen Issues mit Label 'loeschanfrage' gefunden.")
-            return
+    print_section("OFFENE LÖSCHANFRAGEN")
+    issues = fetch_open_issues()
+    if not issues:
+        print("Keine offenen Issues mit Label 'loeschanfrage' gefunden.")
+        return
 
-        objects, content, start, end = load_video_objects()
-        if objects is None:
-            return
+    objects, content, start, end = load_video_objects()
+    if objects is None:
+        return
 
-        total_removed = []
-        total_missing = []
+    total_removed = []
+    total_missing = []
 
-        for issue in issues:
-            number = issue["number"]
-            ids = extract_ids(issue.get("body", ""))
-            print(f"\nIssue #{number} ({issue.get('title', '')}): {len(ids)} ID(s)")
+    for issue in issues:
+        number = issue["number"]
+        ids = extract_ids(issue.get("body", ""))
+        print(f"\nIssue #{number} ({issue.get('title', '')}): {len(ids)} ID(s)")
 
-            removed_here = []
-            missing_here = []
-            for vid in ids:
-                match_idx = None
-                for i, obj in enumerate(objects):
-                    if get_field(obj, "id") == vid:
-                        match_idx = i
-                        break
-                if match_idx is None:
-                    print(f"  {vid}: nicht (mehr) gefunden -> übersprungen")
-                    missing_here.append(vid)
-                    continue
-                objects.pop(match_idx)
-                clear_existing_thumb_files(vid)
-                print(f"  {vid}: entfernt")
-                removed_here.append(vid)
+        removed_here = []
+        missing_here = []
+        for vid in ids:
+            match_idx = None
+            for i, obj in enumerate(objects):
+                if get_field(obj, "id") == vid:
+                    match_idx = i
+                    break
+            if match_idx is None:
+                print(f"  {vid}: nicht (mehr) gefunden -> übersprungen")
+                missing_here.append(vid)
+                continue
+            objects.pop(match_idx)
+            clear_existing_thumb_files(vid)
+            print(f"  {vid}: entfernt")
+            removed_here.append(vid)
 
-            close_issue(number, removed_here, missing_here)
-            total_removed.extend(removed_here)
-            total_missing.extend(missing_here)
+        close_issue(number, removed_here, missing_here)
+        total_removed.extend(removed_here)
+        total_missing.extend(missing_here)
 
-        save_video_objects(objects, content, start, end)
+    save_video_objects(objects, content, start, end)
 
-        print_section("FERTIG")
-        print(f"Entfernte Boxen: {len(total_removed)}")
-        print(f"Nicht gefundene IDs: {len(total_missing)}")
-        print(f"Verbleibende Boxen gesamt: {len(objects)}")
-        print()
+    print_section("FERTIG")
+    print(f"Entfernte Boxen: {len(total_removed)}")
+    print(f"Nicht gefundene IDs: {len(total_missing)}")
+    print(f"Verbleibende Boxen gesamt: {len(objects)}")
+    print()
 
-        print_section("GIT")
-        commit_and_push(total_removed, total_missing)
-    finally:
-        switch_gh_account(GH_ACCOUNT_BACK)
+    print_section("GIT")
+    commit_and_push(total_removed, total_missing)
 
 
 if __name__ == "__main__":
