@@ -254,7 +254,14 @@
 
   <!-- ═══ FLAG BAR (Löschanfrage sammeln) ═══ -->
   <div class="flag-bar" id="flagBar">
-    <span class="flag-bar-count" id="flagBarCount">0 markiert</span>
+    <span class="flag-bar-count">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+        <line x1="4" y1="22" x2="4" y2="15"/>
+      </svg>
+      <span id="flagBarCount">0 markiert</span>
+    </span>
     <div class="flag-bar-actions">
       <button class="flag-bar-discard" id="flagBarDiscard">Verwerfen</button>
       <button class="flag-bar-send" id="flagBarSend">

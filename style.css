@@ -106,7 +106,6 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 .lock-submit svg { width: 20px; height: 20px; }
-.lock-submit:hover  { opacity: .9; }
 .lock-submit:active { transform: scale(.97); }
 
 .lock-error {
@@ -144,18 +143,22 @@ body {
 
 .topbar-inner {
   height: var(--header-h); max-width: 1600px; margin: 0 auto;
-  padding: 0 16px; display: flex; align-items: center;
-  justify-content: space-between; gap: 12px;
+  padding: 0 clamp(10px, 4vw, 16px); display: flex; align-items: center;
+  justify-content: space-between; gap: 8px;
 }
 
 .brand-btn {
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 8px; min-width: 0;
   background: none; border: none; cursor: pointer;
   color: var(--fg); padding: 6px 2px; border-radius: var(--r-xs);
-  -webkit-tap-highlight-color: transparent; flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 .brand-lock { width: 17px; height: 17px; color: var(--accent); flex-shrink: 0; }
-.brand-text { font-size: 15px; font-weight: 700; letter-spacing: -.25px; white-space: nowrap; }
+.brand-text {
+  font-size: 15px; font-weight: 700; letter-spacing: -.25px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  min-width: 0; display: block;
+}
 .brand-text em { font-style: normal; color: var(--fg-2); font-weight: 400; }
 
 .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
@@ -164,7 +167,9 @@ body {
   font-size: 11px; font-weight: 600; letter-spacing: .2px;
   color: var(--fg-3); background: var(--bg-3);
   padding: 3px 9px; border-radius: 100px; white-space: nowrap;
+  display: none;
 }
+@media (min-width: 400px) { .count-chip { display: inline; } }
 
 /* ── Segmented Control ── */
 .seg-ctrl {
@@ -173,19 +178,19 @@ body {
 }
 
 .seg-btn {
-  display: flex; align-items: center; gap: 5px;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  min-height: 40px;
   background: none; border: none; border-radius: 8px;
   color: var(--fg-2); font-size: 13px; font-weight: 500;
   padding: 5px 11px; cursor: pointer; white-space: nowrap;
   transition: background .2s var(--ease), color .2s var(--ease);
   -webkit-tap-highlight-color: transparent;
 }
-.seg-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+.seg-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 .seg-btn span { display: none; }
 @media (min-width: 420px) { .seg-btn span { display: inline; } }
 
 .seg-btn.active { background: rgba(255,255,255,.95); color: #000; }
-.seg-btn:not(.active):hover { background: var(--bg-4); color: var(--fg); }
 
 /* ── View container ── */
 .view { flex: 1; }
@@ -228,7 +233,6 @@ body {
   transition: opacity .15s; -webkit-tap-highlight-color: transparent;
 }
 .search-clear svg { width: 10px; height: 10px; }
-.search-clear:hover { opacity: .7; }
 
 /* ── Sort control ── */
 .sort-seg {
@@ -245,7 +249,6 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 .sort-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
-.sort-btn:not(.active):hover { background: var(--bg-4); color: var(--fg); }
 .sort-btn.active { background: rgba(255,255,255,.95); color: #000; }
 .sort-btn:active { transform: scale(.94); }
 
@@ -273,10 +276,6 @@ body {
   animation: cardIn .3s var(--ease) both;
 }
 .card-link { display: block; }
-.video-card:hover {
-  transform: scale(1.034) translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 0 0.5px rgba(255,255,255,.1);
-}
 .video-card:active { transform: scale(.97); transition-duration: .08s; }
 
 @keyframes cardIn {
@@ -292,7 +291,6 @@ body {
   width: 100%; height: 100%; object-fit: cover;
   transition: transform .35s var(--ease);
 }
-.video-card:hover .card-thumb img { transform: scale(1.07); }
 
 .card-thumb.no-img {
   display: flex; align-items: center; justify-content: center;
@@ -320,7 +318,6 @@ body {
   opacity: 0; background: rgba(0,0,0,0);
   transition: opacity .2s, background .2s;
 }
-.video-card:hover .card-play { opacity: 1; background: rgba(0,0,0,.28); }
 .card-play svg {
   width: 40px; height: 40px; color: #fff;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,.6));
@@ -334,20 +331,24 @@ body {
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 
-/* ── Flag button (Grid) ── */
+/* ── Flag button (Grid) ──
+   Visual size stays small so it doesn't dominate a 2-col mobile card;
+   the ::after pseudo-element extends the real tap area to 44×44. */
 .card-flag {
   position: absolute; top: 7px; left: 7px; z-index: 2;
   width: 28px; height: 28px; border-radius: 50%;
   background: rgba(0,0,0,.55);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  border: 0.5px solid rgba(255,255,255,.15);
+  border: 0.5px solid rgba(255,255,255,.16);
   color: #fff; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: background .2s var(--ease), border-color .2s var(--ease), transform .15s var(--spring);
   -webkit-tap-highlight-color: transparent;
 }
+.card-flag::after {
+  content: ''; position: absolute; inset: -8px; border-radius: 50%;
+}
 .card-flag svg { width: 14px; height: 14px; }
-.card-flag:hover { background: rgba(0,0,0,.8); }
 .card-flag:active { transform: scale(.88); }
 .card-flag.is-flagged { background: var(--accent); border-color: var(--accent); }
 .card-flag.is-flagged svg { fill: currentColor; }
@@ -366,7 +367,6 @@ body {
   cursor: pointer; padding: 0 10px;
   transition: background .15s, color .15s; -webkit-tap-highlight-color: transparent;
 }
-.page-btn:hover:not(:disabled) { background: var(--bg-3); }
 .page-btn.active { background: var(--fg); color: #000; border-color: var(--fg); }
 .page-btn:disabled { opacity: .3; cursor: default; }
 .page-dots { color: var(--fg-3); font-size: 14px; padding: 0 2px; line-height: 38px; }
@@ -407,26 +407,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 .swipe-close svg { width: 16px; height: 16px; }
-.swipe-close:hover { background: rgba(0,0,0,.9); }
 .swipe-close:active { transform: scale(.9); }
-
-/* ── Flag button (Swipe) ── */
-.slide-flag {
-  position: absolute; top: calc(var(--safe-t) + 64px); right: 16px; z-index: 20;
-  width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(0,0,0,.62);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border: 0.5px solid rgba(255,255,255,.12);
-  color: #fff; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s var(--ease), border-color .2s var(--ease), transform .15s var(--spring);
-  -webkit-tap-highlight-color: transparent;
-}
-.slide-flag svg { width: 18px; height: 18px; }
-.slide-flag:hover { background: rgba(0,0,0,.9); }
-.slide-flag:active { transform: scale(.9); }
-.slide-flag.is-flagged { background: var(--accent); border-color: var(--accent); }
-.slide-flag.is-flagged svg { fill: currentColor; }
 
 /* Scroll track */
 .swipe-track {
@@ -480,17 +461,36 @@ body {
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 
+/* Primary CTA + secondary flag toggle, side by side — replaces the
+   old floating flag button that used to sit over the media area. */
+.slide-actions { display: flex; align-items: center; gap: 10px; }
+
 .slide-open {
-  display: inline-flex; align-items: center; gap: 9px;
+  display: inline-flex; align-items: center; gap: 9px; flex: 1;
+  min-width: 0; justify-content: center;
   background: var(--accent); color: #fff; border: none; border-radius: 100px;
   font-size: 16px; font-weight: 600; letter-spacing: -.1px;
-  padding: 13px 30px; cursor: pointer; text-decoration: none;
+  padding: 13px 22px; cursor: pointer; text-decoration: none;
   transition: opacity .15s, transform .12s var(--spring);
   -webkit-tap-highlight-color: transparent;
 }
-.slide-open svg { width: 17px; height: 17px; }
-.slide-open:hover  { opacity: .9; }
+.slide-open svg { width: 17px; height: 17px; flex-shrink: 0; }
+.slide-open span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .slide-open:active { transform: scale(.95); }
+
+.slide-flag-btn {
+  flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%;
+  background: var(--bg-3); border: 0.5px solid var(--sep);
+  color: var(--fg-2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s var(--ease), border-color .2s var(--ease),
+              color .2s var(--ease), transform .15s var(--spring);
+  -webkit-tap-highlight-color: transparent;
+}
+.slide-flag-btn svg { width: 19px; height: 19px; }
+.slide-flag-btn:active { transform: scale(.9); }
+.slide-flag-btn.is-flagged { background: var(--accent); border-color: var(--accent); color: #fff; }
+.slide-flag-btn.is-flagged svg { fill: currentColor; }
 
 /* Swipe hint */
 .swipe-hint {
@@ -570,12 +570,10 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 .sheet-btn svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--fg-2); }
-.sheet-btn:hover  { background: var(--bg-4); }
 .sheet-btn:active { transform: scale(.98); background: var(--bg-4); }
 
 .sheet-btn--primary { background: var(--accent); color: #fff; }
 .sheet-btn--primary svg { color: rgba(255,255,255,.75); }
-.sheet-btn--primary:hover { background: #e52d52; }
 
 .sheet-cancel {
   width: 100%; padding: 15px;
@@ -585,7 +583,6 @@ body {
   transition: background .15s, transform .1s var(--spring);
   -webkit-tap-highlight-color: transparent;
 }
-.sheet-cancel:hover  { background: var(--bg-4); }
 .sheet-cancel:active { transform: scale(.98); }
 
 /* ── Copy Toast ── */
@@ -615,47 +612,65 @@ body {
 
 /* ════════════════════════════════
    FLAG BAR (Löschanfrage sammeln)
-   ════════════════════════════════ */
+   ════════════════════════════════
+   Grid mode: anchored to the bottom, above the pagination — #gridView
+   reserves extra bottom padding (via body.flag-bar-active) so the bar
+   never covers the last row of page buttons.
+   Swipe mode: anchored to the TOP instead, right under the HUD — the
+   bottom of that view already belongs to the title/CTA panel, whose
+   height changes with the title length, so competing for bottom space
+   there was fragile. Anchoring at the top sidesteps that entirely. */
 .flag-bar {
   position: fixed; left: 50%; bottom: calc(var(--safe-b) + 20px);
   transform: translateX(-50%) translateY(140%);
   z-index: 350; pointer-events: none;
   display: flex; align-items: center; gap: 14px;
   background: var(--bg-2); border: 0.5px solid var(--sep);
-  border-radius: 100px; padding: 10px 10px 10px 18px;
+  border-radius: 100px; padding: 8px 8px 8px 18px;
   box-shadow: 0 16px 48px rgba(0,0,0,.6), 0 0 0 0.5px rgba(255,255,255,.06) inset;
-  transition: transform .32s var(--spring), bottom .25s var(--ease);
+  transition: transform .32s var(--spring);
   max-width: calc(100vw - 32px);
 }
 .flag-bar.on { transform: translateX(-50%) translateY(0); pointer-events: auto; }
-.flag-bar.is-swipe { bottom: calc(var(--safe-b) + 210px); }
 
-.flag-bar-count { font-size: 14px; font-weight: 600; color: var(--fg); white-space: nowrap; }
+.flag-bar.is-swipe {
+  bottom: auto; top: calc(var(--safe-t) + 64px);
+  transform: translateX(-50%) translateY(-140%);
+}
+.flag-bar.is-swipe.on { transform: translateX(-50%) translateY(0); }
 
-.flag-bar-actions { display: flex; align-items: center; gap: 8px; }
+.flag-bar-count {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 14px; font-weight: 600; color: var(--fg); white-space: nowrap;
+}
+.flag-bar-count svg { width: 15px; height: 15px; color: var(--accent); flex-shrink: 0; }
+
+.flag-bar-actions { display: flex; align-items: center; gap: 6px; }
 
 .flag-bar-discard {
+  min-height: 40px;
   background: var(--bg-4); border: none; border-radius: 100px;
   color: var(--fg-2); font-size: 13px; font-weight: 600;
-  padding: 10px 16px; cursor: pointer; white-space: nowrap;
+  padding: 0 16px; cursor: pointer; white-space: nowrap;
   transition: background .15s, transform .1s var(--spring);
   -webkit-tap-highlight-color: transparent;
 }
-.flag-bar-discard:hover { background: var(--bg-3); color: var(--fg); }
 .flag-bar-discard:active { transform: scale(.96); }
 
 .flag-bar-send {
-  display: flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; gap: 6px; min-height: 40px;
   background: var(--accent); border: none; border-radius: 100px;
   color: #fff; font-size: 13px; font-weight: 600;
-  padding: 10px 18px; cursor: pointer; white-space: nowrap;
+  padding: 0 18px; cursor: pointer; white-space: nowrap;
   transition: opacity .15s, transform .1s var(--spring);
   -webkit-tap-highlight-color: transparent;
 }
 .flag-bar-send svg { width: 14px; height: 14px; }
-.flag-bar-send:hover { opacity: .9; }
 .flag-bar-send:active { transform: scale(.96); }
 .flag-bar-send:disabled { opacity: .5; cursor: default; }
+
+/* Reserve room above the pagination so the fixed bar never covers it */
+body.flag-bar-active #gridView { padding-bottom: calc(104px + var(--safe-b)); }
 
 /* ════════════════════════════════
    EMPTY STATE
@@ -666,11 +681,38 @@ body {
 .empty-state strong { display: block; font-size: 18px; color: var(--fg-2); margin-bottom: 8px; font-weight: 600; }
 
 /* ════════════════════════════════
+   HOVER (fine pointer only — keeps
+   touch from "sticking" on tap)
+   ════════════════════════════════ */
+@media (hover: hover) and (pointer: fine) {
+  .lock-submit:hover { opacity: .9; }
+  .seg-btn:not(.active):hover { background: var(--bg-4); color: var(--fg); }
+  .search-clear:hover { opacity: .7; }
+  .sort-btn:not(.active):hover { background: var(--bg-4); color: var(--fg); }
+  .video-card:hover {
+    transform: scale(1.034) translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,.6), 0 0 0 0.5px rgba(255,255,255,.1);
+  }
+  .video-card:hover .card-thumb img { transform: scale(1.07); }
+  .video-card:hover .card-play { opacity: 1; background: rgba(0,0,0,.28); }
+  .card-flag:hover { background: rgba(0,0,0,.8); }
+  .page-btn:hover:not(:disabled) { background: var(--bg-3); }
+  .swipe-close:hover { background: rgba(0,0,0,.9); }
+  .slide-open:hover { opacity: .9; }
+  .slide-flag-btn:not(.is-flagged):hover { background: var(--bg-4); color: var(--fg); }
+  .sheet-btn:hover { background: var(--bg-4); }
+  .sheet-btn--primary:hover { background: #e52d52; }
+  .sheet-cancel:hover { background: var(--bg-4); }
+  .flag-bar-discard:hover { background: var(--bg-3); color: var(--fg); }
+  .flag-bar-send:hover { opacity: .9; }
+}
+
+/* ════════════════════════════════
    REDUCED MOTION
    ════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   .video-card, .lock-submit, .seg-btn, .sort-btn, .slide-open, .swipe-close,
-  .card-flag, .slide-flag, .flag-bar, .flag-bar-send, .flag-bar-discard { transition: none; }
+  .card-flag, .slide-flag-btn, .flag-bar, .flag-bar-send, .flag-bar-discard { transition: none; }
   .video-card, .swipe-view { animation: none; }
   .swipe-hint { animation: none; opacity: 0; }
   .lock-card.shake { animation: none; }

@@ -363,19 +363,21 @@
 <article class="swipe-slide" data-idx="${i}" data-title="${esc(v.title||'')}" aria-label="${esc(v.title||'Video')}">
   <div class="slide-bg"${bgStyle}></div>
   <div class="slide-media">${imgTag}</div>
-  ${flagBtnHTML('slide-flag', id, flagged)}
   <div class="slide-info">
     <span class="slide-channel">${esc(v.channel||'Unknown')}</span>
     <h2 class="slide-title">${esc(v.title||'Ohne Titel')}</h2>
-    <a class="slide-open" href="${url}" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-        <polyline points="15 3 21 3 21 9"/>
-        <line x1="10" y1="14" x2="21" y2="3"/>
-      </svg>
-      Video öffnen
-    </a>
+    <div class="slide-actions">
+      <a class="slide-open" href="${url}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+        <span>Video öffnen</span>
+      </a>
+      ${flagBtnHTML('slide-flag-btn', id, flagged)}
+    </div>
   </div>
 </article>`;
   }
@@ -483,7 +485,7 @@
   }
 
   function onFlagClick(e) {
-    const btn = e.target.closest('.card-flag, .slide-flag');
+    const btn = e.target.closest('.card-flag, .slide-flag-btn');
     if (!btn) return;
     e.preventDefault();
     e.stopPropagation();
@@ -507,7 +509,7 @@
   function clearAllFlags() {
     s.flagged.clear();
     saveFlaggedIds();
-    document.querySelectorAll('.card-flag.is-flagged, .slide-flag.is-flagged').forEach(el => {
+    document.querySelectorAll('.card-flag.is-flagged, .slide-flag-btn.is-flagged').forEach(el => {
       el.classList.remove('is-flagged');
       el.setAttribute('aria-pressed', 'false');
       el.setAttribute('aria-label', 'Zur Löschung markieren');
@@ -520,6 +522,7 @@
     E.flagBarCount.textContent = n + ' markiert';
     E.flagBar.classList.toggle('on', n > 0);
     E.flagBar.classList.toggle('is-swipe', s.mode === 'swipe');
+    document.body.classList.toggle('flag-bar-active', n > 0);
   }
 
   function flaggedItems() {
@@ -531,6 +534,8 @@
     if (!items.length) return;
     E.flagConfirmTitle.textContent =
       items.length + ' Video' + (items.length !== 1 ? 's' : '') + ' zur Löschung melden?';
+
+    E.flagBar.classList.remove('on'); // avoid overlapping the sheet while it's open
 
     E.flagConfirmSheet.hidden = false;
     E.flagConfirmSheet.removeAttribute('aria-hidden');
@@ -546,6 +551,7 @@
   function closeFlagConfirm() {
     E.flagBackdrop.classList.remove('on');
     E.flagConfirmSheet.classList.remove('on');
+    updateFlagBar(); // restore the bar (still-flagged items) as the sheet slides away
     setTimeout(() => {
       E.flagConfirmSheet.hidden = true;
       E.flagConfirmSheet.setAttribute('aria-hidden', 'true');
