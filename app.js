@@ -9,7 +9,6 @@
   // Fine-grained GitHub PAT, NUR "Issues: Read and write" auf dieses eine Repo
   // (kein Code-/Datei-Zugriff, keine anderen Repos) — bewusst eingeschränkter
   // Scope, siehe adaptive-skipping-teacup.md. Vor Nutzung ersetzen.
-  const GITHUB_FLAG_TOKEN = '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';
   const GITHUB_REPO       = 'art555444/myprivatecollection';
   const FLAG_LABEL        = 'loeschanfrage';
   const FLAG_STORAGE_KEY  = 'mpc_flagged_ids';
@@ -555,43 +554,20 @@
     }, 320);
   }
 
-  async function submitFlagRequest() {
+  function submitFlagRequest() {
     const items = flaggedItems();
     if (!items.length) { closeFlagConfirm(); return; }
 
-    const originalLabel = E.flagConfirmSend.innerHTML;
-    E.flagConfirmSend.disabled = true;
-    E.flagConfirmSend.textContent = 'Wird gesendet…';
-
     const lines = items.map(v => `- [${v.id}] ${v.title || 'Ohne Titel'} — ${v.url}`).join('\n');
     const body  = 'Folgende Videos wurden über die Website zur Löschung markiert:\n\n' + lines;
+    const title = `Löschanfrage: ${items.length} Video${items.length !== 1 ? 's' : ''}`;
 
-    try {
-      const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues`, {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + GITHUB_FLAG_TOKEN,
-          'Accept': 'application/vnd.github+json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: `Löschanfrage: ${items.length} Video${items.length !== 1 ? 's' : ''}`,
-          body,
-          labels: [FLAG_LABEL],
-        }),
-      });
+    const params = new URLSearchParams({ title, body, labels: FLAG_LABEL });
+    window.open(`https://github.com/${GITHUB_REPO}/issues/new?${params}`, '_blank', 'noopener');
 
-      if (!res.ok) throw new Error('GitHub API ' + res.status);
-
-      clearAllFlags();
-      closeFlagConfirm();
-      showFlagToast('Anfrage gesendet — danke!', false);
-    } catch (err) {
-      showFlagToast('Senden fehlgeschlagen — bitte erneut versuchen', true);
-    } finally {
-      E.flagConfirmSend.disabled = false;
-      E.flagConfirmSend.innerHTML = originalLabel;
-    }
+    clearAllFlags();
+    closeFlagConfirm();
+    showFlagToast('GitHub-Issue wird geöffnet — bitte dort absenden', false);
   }
 
   let _flagToastTimer;
