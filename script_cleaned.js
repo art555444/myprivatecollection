@@ -3148,6 +3148,15 @@ const videos = [
     platform: "custom",
     thumbnail: "images/thumbs/custom-368.jpg",
     url: "https://www.xnxx.com/video-13ni6fe8/mia_khalifa_-_das_lustvolle_libanesische_babe_hilft_einem_nerdy-boy_ein_nerdy-mann_zu_werden"
+  },
+  {
+    id: "custom-369",
+    title: "Crash-Test 💥😱 Wer hat den besten Notbremsassistent bei Tag & Nacht? | GRIP #702",
+    description: "Das gab es noch nie: GRIP checkt aktuelle Fußgänger-Notbrems-Assistenten in einem aufwendigen Tag/Nacht-Szenario - identische Aufgabe, einmal bei T...",
+    channel: "YouTube",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-369.jpg",
+    url: "https://www.youtube.com/watch?v=0BOJUGGlftU"
   }
 ];
 
