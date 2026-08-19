@@ -263,14 +263,21 @@
       <span id="flagBarCount">0 markiert</span>
     </span>
     <div class="flag-bar-actions">
-      <button class="flag-bar-discard" id="flagBarDiscard">Verwerfen</button>
-      <button class="flag-bar-send" id="flagBarSend">
+      <button class="flag-bar-discard" id="flagBarDiscard" aria-label="Verwerfen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+             stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+        <span>Verwerfen</span>
+      </button>
+      <button class="flag-bar-send" id="flagBarSend" aria-label="Anfrage senden">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="22" y1="2" x2="11" y2="13"/>
           <polygon points="22 2 15 22 11 13 2 9 22 2"/>
         </svg>
-        Anfrage senden
+        <span>Anfrage senden</span>
       </button>
     </div>
   </div>
