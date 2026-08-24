@@ -630,15 +630,6 @@ const videos = [
     url: "https://www.xnxx.com/video-111qk7f9/beste_cum_in_panties-zusammenstellung_aller_zeiten_"
   },
 {
-    id: "custom-76",
-    title: "Pee prevers",
-    description: "Pee prevers",
-    channel: "Xnxx",
-    platform: "custom",
-    thumbnail: "images/thumbs/custom-76.jpg",
-    url: "https://www.xnxx.com/video-15bw4b43/natursekt_pervers"
-  },
-{
     id: "custom-77",
     title: "Japanese Pee Complication",
     description: "Japanese Pee Complication",
@@ -3139,6 +3130,150 @@ const videos = [
     platform: "custom",
     thumbnail: "images/thumbs/custom-368.jpg",
     url: "https://www.xnxx.com/video-13ni6fe8/mia_khalifa_-_das_lustvolle_libanesische_babe_hilft_einem_nerdy-boy_ein_nerdy-mann_zu_werden"
+  },
+  {
+    id: "custom-369",
+    title: "Hot Latina Teen Screams From Pleasure",
+    description: "Hot Latina Teen Screams From Pleasure",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-369.png",
+    url: "https://de.pornhub.org/view_video.php?viewkey=6a7b0bdb9a911"
+  },
+  {
+    id: "custom-370",
+    title: "Big or Small? Cute Girl in Leggings Chooses Her Perfect Cock",
+    description: "Big or Small? Cute Girl in Leggings Chooses Her Perfect Cock",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-370.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=6a7b5eb308353"
+  },
+  {
+    id: "custom-371",
+    title: "SHE DID NOT EXPECT THAT - Alexis Crystal",
+    description: "SHE DID NOT EXPECT THAT - Alexis Crystal",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-371.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=668592921230f"
+  },
+  {
+    id: "custom-372",
+    title: "I'M CUMMMMMING!!! - GIRLS CUMMING HARD - REAL ORGASM COMPILATION",
+    description: "I'M CUMMMMMING!!! - GIRLS CUMMING HARD - REAL ORGASM COMPILATION",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-372.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=68fbacaf42767"
+  },
+  {
+    id: "custom-373",
+    title: "She doesn't let him pull out! - Fit 18 year old Impregnated while riding dick",
+    description: "She doesn't let him pull out! - Fit 18 year old Impregnated while riding dick",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-373.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=ph624b12ce16369"
+  },
+  {
+    id: "custom-374",
+    title: "I wouldn't let him pull out...",
+    description: "I wouldn't let him pull out...",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-374.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=ph5b3eaf35d1eb9"
+  },
+  {
+    id: "custom-375",
+    title: "She doesn't let him Pull out, and enjoy a shared, risky orgasm by the fireplace",
+    description: "She doesn't let him Pull out, and enjoy a shared, risky orgasm by the fireplace",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-375.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=6a82ada85ed6d"
+  },
+  {
+    id: "custom-376",
+    title: "StepBro Tried To Pull Out But I Didn’t Let Him Because We’re Both Cumming At The Same Time",
+    description: "StepBro Tried To Pull Out But I Didn’t Let Him Because We’re Both Cumming At The Same Time",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-376.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=63ff39b49de9d"
+  },
+  {
+    id: "custom-377",
+    title: "KINKY TIME! ORGASMIC 69 CUMMING TO MOUTH at the SAME TIME - Mr Pussylicking",
+    description: "KINKY TIME! ORGASMIC 69 CUMMING TO MOUTH at the SAME TIME - Mr Pussylicking",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-377.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=ph5f4b2d59c39d5"
+  },
+  {
+    id: "custom-378",
+    title: "Try Not to Cum with Leggings Squirt Challenge",
+    description: "Try Not to Cum with Leggings Squirt Challenge",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-378.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=684bedbd00621"
+  },
+  {
+    id: "custom-379",
+    title: "My UBER DRIVER Made Me SQUIRT NONSTOP while Driving - Made a Puddle on the Seat",
+    description: "My UBER DRIVER Made Me SQUIRT NONSTOP while Driving - Made a Puddle on the Seat",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-379.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=6714234d6003d"
+  },
+  {
+    id: "custom-380",
+    title: "VR SLUT or STEPMOM? She ME INTO RAW CREAMPIE! (CAUGHT ON CAMERA)",
+    description: "VR SLUT or STEPMOM? She ME INTO RAW CREAMPIE! (CAUGHT ON CAMERA)",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-380.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=680f301100ff5"
+  },
+  {
+    id: "custom-381",
+    title: "Perfect Girl Makes Him Cum Without Hands From Pegging !!",
+    description: "Perfect Girl Makes Him Cum Without Hands From Pegging !!",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-381.png",
+    url: "https://de.pornhub.org/view_video.php?viewkey=69e78cb819856"
+  },
+  {
+    id: "custom-382",
+    title: "Femboy Chastity Orgasm Compilation (hands free)",
+    description: "Femboy Chastity Orgasm Compilation (hands free)",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-382.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=65ffadf113837"
+  },
+  {
+    id: "custom-383",
+    title: "Best Compilation of Hands Free, Multiple, Denied, Ruined Cumshots",
+    description: "Best Compilation of Hands Free, Multiple, Denied, Ruined Cumshots",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-383.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=6458fb48dbedb"
+  },
+  {
+    id: "custom-384",
+    title: "Epic ruined compilation - watch their moves now!!",
+    description: "Epic ruined compilation - watch their moves now!!",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-384.jpg",
+    url: "https://de.pornhub.org/view_video.php?viewkey=ph624d41a863ef4"
   }
 ];
 
