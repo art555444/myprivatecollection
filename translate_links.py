@@ -2,7 +2,9 @@
 Deutsche. Titel, die bereits deutsch sind, werden uebersprungen. Fuegt keine
 Links hinzu und loescht keine (dafuer siehe add_links.py / remove_links.py).
 
-Einfach in VS Code mit dem Play-Button starten.
+Einfach in VS Code mit dem Play-Button starten: es oeffnet sich ein Fenster,
+in dem per Schieberegler ausgewaehlt wird, welche Boxen bearbeitet werden
+sollen (z.B. nur 70 bis 90).
 """
 
 import json
@@ -10,6 +12,13 @@ import re
 import shutil
 import time
 import requests
+
+try:
+    import tkinter as tk
+except ImportError:
+    # Ohne tkinter (z.B. WSL-Python ohne python3-tk) laeuft die Abfrage im
+    # Terminal weiter, statt das ganze Script am Import scheitern zu lassen.
+    tk = None
 
 from link_common import (
     INPUT_JS_FILE,
@@ -240,15 +249,169 @@ def store(objects, content, start, end):
     save_video_objects(objects, content, start, end)
 
 
+def ask_range(total):
+    """Fragt den zu bearbeitenden Bereich ab - bevorzugt per Fenster, sonst im
+    Terminal. Liefert (erste, letzte) oder None bei Abbruch."""
+    if tk is None:
+        print("Hinweis: tkinter ist in dieser Python-Umgebung nicht installiert,")
+        print("die Abfrage läuft deshalb hier im Terminal.")
+        print("Für das Fenster: python3-tk installieren bzw. Windows-Python nutzen.")
+        return ask_range_console(total)
+
+    try:
+        return ask_range_window(total)
+    except tk.TclError as e:
+        print(f"Auswahlfenster konnte nicht geöffnet werden ({e}).")
+        print("Die Abfrage läuft deshalb hier im Terminal.")
+        return ask_range_console(total)
+
+
+def ask_range_console(total):
+    """Ersatz fuer das Fenster: dieselbe Auswahl als Eingabe im Terminal."""
+    print(f"\n{total} Boxen in {INPUT_JS_FILE} gefunden.")
+
+    while True:
+        try:
+            raw = input("Bereich (z.B. 70-90, leer = alle, x = abbrechen): ").strip().lower()
+        except EOFError:
+            return None
+
+        if raw in ("x", "q", "abbruch", "abbrechen"):
+            return None
+
+        if not raw:
+            return 1, total
+
+        match = re.fullmatch(r"(\d+)\s*(?:-|bis|\.\.)\s*(\d+)", raw)
+        if match:
+            first, last = int(match.group(1)), int(match.group(2))
+        elif raw.isdigit():
+            first = last = int(raw)
+        else:
+            print("Bitte im Format 70-90 angeben.")
+            continue
+
+        if first > last:
+            first, last = last, first
+
+        if first < 1 or last > total:
+            print(f"Der Bereich muss zwischen 1 und {total} liegen.")
+            continue
+
+        return first, last
+
+
+def ask_range_window(total):
+    """Fenster mit zwei Schiebereglern fuer den zu bearbeitenden Bereich.
+    Liefert (erste, letzte) als 1-basierte Positionen einschliesslich beider
+    Grenzen - oder None, wenn das Fenster ohne Start geschlossen wurde."""
+    selection = {"range": None}
+
+    root = tk.Tk()
+    root.title("Titel übersetzen")
+    root.geometry("560x400")
+
+    tk.Label(
+        root,
+        text=f"{total} Boxen in {INPUT_JS_FILE} gefunden.",
+        anchor="w",
+        justify="left",
+    ).pack(fill=tk.X, padx=14, pady=(14, 0))
+
+    tk.Label(
+        root,
+        text="Bereich auswählen - bereits deutsche Titel werden dabei trotzdem übersprungen.",
+        anchor="w",
+        justify="left",
+        wraplength=520,
+    ).pack(fill=tk.X, padx=14, pady=(2, 10))
+
+    from_var = tk.IntVar(value=1)
+    to_var = tk.IntVar(value=total)
+
+    tk.Label(root, text="Von Box:", anchor="w").pack(fill=tk.X, padx=14)
+    from_scale = tk.Scale(
+        root, from_=1, to=total, orient=tk.HORIZONTAL, variable=from_var, resolution=1
+    )
+    from_scale.pack(fill=tk.X, padx=14)
+
+    tk.Label(root, text="Bis Box:", anchor="w").pack(fill=tk.X, padx=14, pady=(6, 0))
+    to_scale = tk.Scale(
+        root, from_=1, to=total, orient=tk.HORIZONTAL, variable=to_var, resolution=1
+    )
+    to_scale.pack(fill=tk.X, padx=14)
+
+    preview = tk.Label(root, text="", anchor="w", justify="left", wraplength=520)
+    preview.pack(fill=tk.X, padx=14, pady=(10, 0))
+
+    def update_preview(*_):
+        first, last = from_var.get(), to_var.get()
+        count = last - first + 1
+        preview.config(
+            text=f"Ausgewählt: Box {first} bis {last}  ({count} von {total})"
+        )
+
+    # Die Regler ziehen sich gegenseitig mit, damit "von" nie hinter "bis"
+    # liegen kann. Die Bedingung verhindert, dass sich die beiden Callbacks
+    # gegenseitig endlos aufrufen.
+    def on_from(*_):
+        if from_var.get() > to_var.get():
+            to_var.set(from_var.get())
+        update_preview()
+
+    def on_to(*_):
+        if to_var.get() < from_var.get():
+            from_var.set(to_var.get())
+        update_preview()
+
+    from_scale.config(command=on_from)
+    to_scale.config(command=on_to)
+    update_preview()
+
+    button_row = tk.Frame(root)
+    button_row.pack(fill=tk.X, padx=14, pady=14)
+
+    def select_all():
+        from_var.set(1)
+        to_var.set(total)
+        update_preview()
+
+    def on_start():
+        selection["range"] = (from_var.get(), to_var.get())
+        root.destroy()
+
+    tk.Button(button_row, text="Alle auswählen", command=select_all).pack(side=tk.LEFT)
+    tk.Button(button_row, text="Abbrechen", command=root.destroy).pack(side=tk.RIGHT)
+    tk.Button(button_row, text="Übersetzen starten", command=on_start).pack(
+        side=tk.RIGHT, padx=(0, 8)
+    )
+
+    root.mainloop()
+
+    return selection["range"]
+
+
 def main():
     objects, content, start, end = load_video_objects()
     if objects is None:
         return
 
+    total = len(objects)
+    if total == 0:
+        print("Keine Boxen in script_cleaned.js gefunden.")
+        return
+
+    selection = ask_range(total)
+    if selection is None:
+        print("Abgebrochen - es wurde nichts verändert.")
+        return
+
+    first, last = selection
     fields = ["title"] + (["description"] if TRANSLATE_DESCRIPTIONS else [])
 
     print_section("ÜBERSETZE TITEL INS DEUTSCHE")
-    print(f"Boxen gesamt: {len(objects)}")
+    print(f"Boxen gesamt: {total}")
+    print(f"Ausgewählter Bereich: Box {first} bis {last} ({last - first + 1} Stück)")
     if DRY_RUN:
         print("DRY_RUN aktiv - es wird nichts gespeichert.")
     else:
@@ -256,11 +419,13 @@ def main():
 
     stats = make_stats()
     consecutive_failures = 0
+    processed = 0
     aborted = False
 
     try:
-        for index, obj in enumerate(objects):
-            print(f"\n[{index + 1}/{len(objects)}] {get_field(obj, 'id')}")
+        for index in range(first - 1, last):
+            obj = objects[index]
+            print(f"\n[{index + 1}/{total}] {get_field(obj, 'id')}")
 
             for field_name in fields:
                 obj, ok = translate_field(obj, field_name, stats)
@@ -284,7 +449,8 @@ def main():
             if aborted:
                 break
 
-            if (index + 1) % SAVE_EVERY == 0:
+            processed += 1
+            if processed % SAVE_EVERY == 0:
                 store(objects, content, start, end)
 
     except KeyboardInterrupt:
@@ -294,6 +460,7 @@ def main():
     store(objects, content, start, end)
 
     print_section("FERTIG")
+    print(f"Bearbeiteter Bereich: Box {first} bis {last}")
     print(f"Übersetzt: {stats['translated']}")
     print(f"Bereits deutsch übersprungen: {stats['skipped_german']}")
     print(f"Leere Felder übersprungen: {stats['skipped_empty']}")
