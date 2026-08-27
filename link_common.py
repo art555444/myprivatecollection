@@ -331,7 +331,9 @@ def get_field(obj, field_name):
 def replace_field(obj, field_name, new_value):
     pattern = rf'({field_name}\s*:\s*")([^"]*)(")'
     if re.search(pattern, obj):
-        return re.sub(pattern, rf'\1{new_value}\3', obj)
+        # Lambda statt Replacement-String: sonst wuerde ein Backslash oder eine
+        # Zeichenfolge wie \1 im neuen Text von re.sub selbst interpretiert.
+        return re.sub(pattern, lambda m: m.group(1) + new_value + m.group(3), obj)
     return obj
 
 
