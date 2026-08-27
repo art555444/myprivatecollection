@@ -323,13 +323,19 @@ def get_existing_array(content):
     return match.group(1), match.start(), match.end()
 
 
+# Ein Feldwert kann escapte Zeichen enthalten (z.B. \" mitten im Titel).
+# Ein simples [^"]* wuerde dort abbrechen und nur den Anfang des Wertes
+# liefern - beim Zurueckschreiben zerstoert das den JS-String.
+FIELD_VALUE_PATTERN = r'((?:[^"\\]|\\.)*)'
+
+
 def get_field(obj, field_name):
-    match = re.search(rf'{field_name}\s*:\s*"([^"]*)"', obj)
+    match = re.search(rf'{field_name}\s*:\s*"{FIELD_VALUE_PATTERN}"', obj)
     return match.group(1).strip() if match else ""
 
 
 def replace_field(obj, field_name, new_value):
-    pattern = rf'({field_name}\s*:\s*")([^"]*)(")'
+    pattern = rf'({field_name}\s*:\s*"){FIELD_VALUE_PATTERN}(")'
     if re.search(pattern, obj):
         # Lambda statt Replacement-String: sonst wuerde ein Backslash oder eine
         # Zeichenfolge wie \1 im neuen Text von re.sub selbst interpretiert.

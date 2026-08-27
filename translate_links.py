@@ -8,8 +8,10 @@ sollen (z.B. nur 70 bis 90).
 """
 
 import json
+import os
 import re
 import shutil
+import subprocess
 import time
 import requests
 
@@ -182,10 +184,26 @@ def translate_to_german(text):
     return None, None
 
 
+# Ein gueltiger Wert enthaelt kein unescaptes " und keinen einzelnen
+# Backslash - sonst zerbricht der JS-String und damit die ganze Seite.
+SAFE_JS_VALUE = re.compile(r'^(?:[^"\\\n\r]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4})*$')
+
+
+def js_unescape(value):
+    """Macht aus dem rohen JS-Feldwert wieder normalen Text (\" -> "),
+    damit der Uebersetzer keine Backslashes zu sehen bekommt."""
+    return re.sub(r'\\(.)', lambda m: m.group(1), value)
+
+
+def is_safe_js_value(value):
+    return bool(SAFE_JS_VALUE.match(value))
+
+
 def translate_field(obj, field_name, stats):
     """Uebersetzt ein einzelnes Feld der Box und liefert das (ggf.) geaenderte
     Objekt zurueck. stats wird dabei mitgezaehlt."""
-    original = get_field(obj, field_name)
+    raw = get_field(obj, field_name)
+    original = js_unescape(raw)
 
     if not original.strip():
         stats["skipped_empty"] += 1
@@ -211,7 +229,13 @@ def translate_field(obj, field_name, stats):
 
     new_value = clean_text(translated)
 
-    if not new_value or new_value == original:
+    if not is_safe_js_value(new_value):
+        print(f"  UNSICHERES ERGEBNIS -> unverändert gelassen: {original}")
+        stats["failed"] += 1
+        stats["failed_texts"].append(original)
+        return obj, True
+
+    if not new_value or new_value == clean_text(original):
         print(f"  keine Änderung: {original}")
         stats["unchanged"] += 1
         return obj, True
@@ -247,6 +271,40 @@ def store(objects, content, start, end):
     if DRY_RUN:
         return
     save_video_objects(objects, content, start, end)
+
+
+def verify_or_restore():
+    """Letzte Absicherung: prueft die geschriebene Datei mit node auf
+    JS-Syntaxfehler. Ist sie kaputt, wird sofort die Sicherheitskopie
+    zurueckgespielt - eine kaputte script_cleaned.js legt sonst die komplette
+    Seite lahm (auch den Login). Ohne node wird die Pruefung uebersprungen."""
+    if DRY_RUN:
+        return True
+
+    if shutil.which("node") is None:
+        print("Hinweis: node nicht gefunden - Syntaxprüfung übersprungen.")
+        return True
+
+    result = subprocess.run(
+        ["node", "--check", INPUT_JS_FILE],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode == 0:
+        print(f"Syntaxprüfung von {INPUT_JS_FILE}: in Ordnung.")
+        return True
+
+    print_section("FEHLER - DATEI WÄRE UNGÜLTIG")
+    print(result.stderr.strip()[:600])
+
+    if os.path.isfile(BACKUP_FILE):
+        shutil.copyfile(BACKUP_FILE, INPUT_JS_FILE)
+        print(f"\n{BACKUP_FILE} wurde zurückgespielt - Stand wie vor dem Lauf.")
+    else:
+        print(f"\nKEINE Sicherheitskopie vorhanden ({BACKUP_FILE} fehlt)!")
+        print("Letzten funktionierenden Stand notfalls mit git wiederherstellen.")
+
+    return False
 
 
 def ask_range(total):
@@ -458,6 +516,7 @@ def main():
         aborted = True
 
     store(objects, content, start, end)
+    file_ok = verify_or_restore()
 
     print_section("FERTIG")
     print(f"Bearbeiteter Bereich: Box {first} bis {last}")
@@ -473,6 +532,8 @@ def main():
         print("Script einfach nochmal starten, um diese erneut zu versuchen.")
     if aborted:
         print("HINWEIS: Lauf wurde vorzeitig beendet.")
+    if not file_ok:
+        print("ACHTUNG: Änderungen wurden verworfen - siehe Fehler oben.")
     if DRY_RUN:
         print("DRY_RUN war aktiv - script_cleaned.js wurde nicht verändert.")
 
