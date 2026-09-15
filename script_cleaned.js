@@ -2924,27 +2924,27 @@ const videos = [
     thumbnail: "images/thumbs/custom-448.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=681cc3be29840"
   },
-  {
+{
     id: "custom-449",
-    title: "Giving My Little Step Brother An EDGING TUTORIAL",
+    title: "Ich gebe meinem kleinen Stiefbruder ein EDGING-TUTORIAL",
     description: "Giving My Little Step Brother An EDGING TUTORIAL",
     channel: "Pornhub",
     platform: "custom",
     thumbnail: "images/thumbs/custom-449.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=6733787fdce5c"
   },
-  {
+{
     id: "custom-450",
-    title: "BREED ME VOLUME 1 - Cum Begging & Creampie Compilation",
+    title: "BREED ME VOLUME 1 – Spermabetteln & Creampie-Zusammenstellung",
     description: "BREED ME VOLUME 1 - Cum Begging & Creampie Compilation",
     channel: "Pornhub",
     platform: "custom",
     thumbnail: "images/thumbs/custom-450.png",
     url: "https://de.pornhub.com/view_video.php?viewkey=697a12eaeccb4"
   },
-  {
+{
     id: "custom-451",
-    title: "Cock Tease Madison Summers Taunts Stepbro Until He Accidentally Explodes in His Pants - S6:E6",
+    title: "Cock Tease Madison Summers verspottet Stiefbruder, bis er versehentlich in seiner Hose explodiert - S6:E6",
     description: "Cock Tease Madison Summers Taunts Stepbro Until He Accidentally Explodes in His Pants - S6:E6",
     channel: "Pornhub",
     platform: "custom",
