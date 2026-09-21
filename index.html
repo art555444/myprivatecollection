@@ -2,311 +2,184 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="referrer" content="unsafe-url" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="MyPrivate" />
   <title>MYprivateCOLLECTION</title>
-  <!-- PWA / Home Screen -->
   <link rel="apple-touch-icon" href="icon.png" />
-  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="icon" type="image/png" href="icon-192.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css?v=20260818" />
+  <link rel="stylesheet" href="style.css?v=20260921" />
 </head>
-<body>
+<body class="is-locked">
 
-  <!-- ═══ LOCK SCREEN ═══ -->
-  <div class="lock-overlay" id="lockOverlay">
-    <div class="lock-card" id="lockCard">
-      <div class="lock-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-             stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="3"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="i-grid" viewBox="0 0 256 256"><path d="M104 40H56a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m0 64H56V56h48zm96-64h-48a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m0 64h-48V56h48zm-96 32H56a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16v-48a16 16 0 0 0-16-16m0 64H56v-48h48zm96-64h-48a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16v-48a16 16 0 0 0-16-16m0 64h-48v-48h48z"/></symbol>
+  <symbol id="i-grid-fill" viewBox="0 0 256 256"><path d="M120 56v48a16 16 0 0 1-16 16H56a16 16 0 0 1-16-16V56a16 16 0 0 1 16-16h48a16 16 0 0 1 16 16m80-16h-48a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m-96 96H56a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16v-48a16 16 0 0 0-16-16m96 0h-48a16 16 0 0 0-16 16v48a16 16 0 0 0 16 16h48a16 16 0 0 0 16-16v-48a16 16 0 0 0-16-16"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 256 256"><path d="M178 40c-20.65 0-38.73 8.88-50 23.89C116.73 48.88 98.65 40 78 40a62.07 62.07 0 0 0-62 62c0 70 103.79 126.66 108.21 129a8 8 0 0 0 7.58 0C136.21 228.66 240 172 240 102a62.07 62.07 0 0 0-62-62m-50 174.8c-18.26-10.64-96-59.11-96-112.8a46.06 46.06 0 0 1 46-46c19.45 0 35.78 10.36 42.6 27a8 8 0 0 0 14.8 0c6.82-16.67 23.15-27 42.6-27a46.06 46.06 0 0 1 46 46c0 53.61-77.76 102.15-96 112.8"/></symbol>
+  <symbol id="i-heart-fill" viewBox="0 0 256 256"><path d="M240 102c0 70-103.79 126.66-108.21 129a8 8 0 0 1-7.58 0C119.79 228.66 16 172 16 102a62.07 62.07 0 0 1 62-62c20.65 0 38.73 8.88 50 23.89C139.27 48.88 157.35 40 178 40a62.07 62.07 0 0 1 62 62"/></symbol>
+  <symbol id="i-shuffle" viewBox="0 0 256 256"><path d="M237.66 178.34a8 8 0 0 1 0 11.32l-24 24a8 8 0 0 1-11.32-11.32L212.69 192h-11.75a72.12 72.12 0 0 1-58.59-30.15l-41.72-58.4A56.1 56.1 0 0 0 55.06 80H32a8 8 0 0 1 0-16h23.06a72.12 72.12 0 0 1 58.59 30.15l41.72 58.4A56.1 56.1 0 0 0 200.94 176h11.75l-10.35-10.34a8 8 0 0 1 11.32-11.32ZM143 107a8 8 0 0 0 11.16-1.86l1.2-1.67A56.1 56.1 0 0 1 200.94 80h11.75l-10.35 10.34a8 8 0 0 0 11.32 11.32l24-24a8 8 0 0 0 0-11.32l-24-24a8 8 0 0 0-11.32 11.32L212.69 64h-11.75a72.12 72.12 0 0 0-58.59 30.15l-1.2 1.67A8 8 0 0 0 143 107m-30 42a8 8 0 0 0-11.16 1.86l-1.2 1.67A56.1 56.1 0 0 1 55.06 176H32a8 8 0 0 0 0 16h23.06a72.12 72.12 0 0 0 58.59-30.15l1.2-1.67A8 8 0 0 0 113 149"/></symbol>
+  <symbol id="i-search" viewBox="0 0 256 256"><path d="m229.66 218.34l-50.07-50.06a88.11 88.11 0 1 0-11.31 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32M40 112a72 72 0 1 1 72 72a72.08 72.08 0 0 1-72-72"/></symbol>
+  <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 256 256"><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m37.66 130.34a8 8 0 0 1-11.32 11.32L128 139.31l-26.34 26.35a8 8 0 0 1-11.32-11.32L116.69 128l-26.35-26.34a8 8 0 0 1 11.32-11.32L128 116.69l26.34-26.35a8 8 0 0 1 11.32 11.32L139.31 128Z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 256 256"><path d="M208 80h-32V56a48 48 0 0 0-96 0v24H48a16 16 0 0 0-16 16v112a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16M96 56a32 32 0 0 1 64 0v24H96Zm112 152H48V96h160z"/></symbol>
+  <symbol id="i-lock-fill" viewBox="0 0 256 256"><path d="M208 80h-32V56a48 48 0 0 0-96 0v24H48a16 16 0 0 0-16 16v112a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16M96 56a32 32 0 0 1 64 0v24H96Z"/></symbol>
+  <symbol id="i-open" viewBox="0 0 256 256"><path d="M200 64v104a8 8 0 0 1-16 0V83.31L69.66 197.66a8 8 0 0 1-11.32-11.32L172.69 72H88a8 8 0 0 1 0-16h104a8 8 0 0 1 8 8"/></symbol>
+  <symbol id="i-link" viewBox="0 0 256 256"><path d="M165.66 90.34a8 8 0 0 1 0 11.32l-64 64a8 8 0 0 1-11.32-11.32l64-64a8 8 0 0 1 11.32 0M215.6 40.4a56 56 0 0 0-79.2 0l-30.06 30.05a8 8 0 0 0 11.32 11.32l30.06-30a40 40 0 0 1 56.57 56.56l-30.07 30.06a8 8 0 0 0 11.31 11.32l30.07-30.11a56 56 0 0 0 0-79.2m-77.26 133.82l-30.06 30.06a40 40 0 1 1-56.56-56.57l30.05-30.05a8 8 0 0 0-11.32-11.32L40.4 136.4a56 56 0 0 0 79.2 79.2l30.06-30.07a8 8 0 0 0-11.32-11.31"/></symbol>
+  <symbol id="i-check" viewBox="0 0 256 256"><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m45.66 85.66l-56 56a8 8 0 0 1-11.32 0l-24-24a8 8 0 0 1 11.32-11.32L112 148.69l50.34-50.35a8 8 0 0 1 11.32 11.32"/></symbol>
+  <symbol id="i-backspace" viewBox="0 0 256 256"><path d="M216 40H68.53a16.08 16.08 0 0 0-13.72 7.77L9.14 123.88a8 8 0 0 0 0 8.24l45.67 76.11A16.08 16.08 0 0 0 68.53 216H216a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16M61.67 204.12l6.86-4.12ZM216 200H68.53l-43.2-72l43.2-72H216Zm-109.66-53.66L124.69 128l-18.35-18.34a8 8 0 0 1 11.32-11.32L136 116.69l18.34-18.35a8 8 0 0 1 11.32 11.32L147.31 128l18.35 18.34a8 8 0 0 1-11.32 11.32L136 139.31l-18.34 18.35a8 8 0 0 1-11.32-11.32"/></symbol>
+  <symbol id="i-share" viewBox="0 0 256 256"><path d="M176 160a39.9 39.9 0 0 0-28.62 12.09l-46.1-29.63a39.8 39.8 0 0 0 0-28.92l46.1-29.63a40 40 0 1 0-8.66-13.45l-46.1 29.63a40 40 0 1 0 0 55.82l46.1 29.63A40 40 0 1 0 176 160m0-128a24 24 0 1 1-24 24a24 24 0 0 1 24-24M64 152a24 24 0 1 1 24-24a24 24 0 0 1-24 24m112 72a24 24 0 1 1 24-24a24 24 0 0 1-24 24"/></symbol>
+  <symbol id="i-heart-break" viewBox="0 0 256 256"><path d="M178 40a61.6 61.6 0 0 0-43.84 18.16L128 64.32l-6.16-6.16A62 62 0 0 0 16 102c0 70 103.79 126.67 108.21 129a8 8 0 0 0 7.58 0C136.21 228.67 240 172 240 102a62.07 62.07 0 0 0-62-62m-50 174.8c-18.26-10.64-96-59.11-96-112.8a46 46 0 0 1 78.53-32.53l6.16 6.16L106.34 86a8 8 0 0 0 0 11.31l24.53 24.53l-16.53 16.52a8 8 0 0 0 11.32 11.32l22.18-22.19a8 8 0 0 0 0-11.31l-24.53-24.55l22.16-22.16A46 46 0 0 1 224 102c0 53.61-77.76 102.15-96 112.8"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M197.58 129.06L146 110l-19-51.62a15.92 15.92 0 0 0-29.88 0L78 110l-51.62 19a15.92 15.92 0 0 0 0 29.88L78 178l19 51.62a15.92 15.92 0 0 0 29.88 0L146 178l51.62-19a15.92 15.92 0 0 0 0-29.88ZM137 164.22a8 8 0 0 0-4.74 4.74L112 223.85L91.78 169a8 8 0 0 0-4.78-4.78L32.15 144L87 123.78a8 8 0 0 0 4.78-4.78L112 64.15L132.22 119a8 8 0 0 0 4.74 4.74L191.85 144ZM144 40a8 8 0 0 1 8-8h16V16a8 8 0 0 1 16 0v16h16a8 8 0 0 1 0 16h-16v16a8 8 0 0 1-16 0V48h-16a8 8 0 0 1-8-8m104 48a8 8 0 0 1-8 8h-8v8a8 8 0 0 1-16 0v-8h-8a8 8 0 0 1 0-16h8v-8a8 8 0 0 1 16 0v8h8a8 8 0 0 1 8 8"/></symbol>
+  <symbol id="i-again" viewBox="0 0 256 256"><path d="M240 56v48a8 8 0 0 1-8 8h-48a8 8 0 0 1 0-16h27.4l-26.59-24.36l-.25-.24a80 80 0 1 0-1.67 114.78a8 8 0 0 1 11 11.63A95.44 95.44 0 0 1 128 224h-1.32a96 96 0 1 1 69.07-164L224 85.8V56a8 8 0 1 1 16 0"/></symbol>
+  <symbol id="i-dice" viewBox="0 0 256 256"><path d="M192 32H64a32 32 0 0 0-32 32v128a32 32 0 0 0 32 32h128a32 32 0 0 0 32-32V64a32 32 0 0 0-32-32m16 160a16 16 0 0 1-16 16H64a16 16 0 0 1-16-16V64a16 16 0 0 1 16-16h128a16 16 0 0 1 16 16ZM104 92a12 12 0 1 1-12-12a12 12 0 0 1 12 12m72 0a12 12 0 1 1-12-12a12 12 0 0 1 12 12m-72 72a12 12 0 1 1-12-12a12 12 0 0 1 12 12m36-36a12 12 0 1 1-12-12a12 12 0 0 1 12 12m36 36a12 12 0 1 1-12-12a12 12 0 0 1 12 12"/></symbol>
+  <symbol id="i-film" viewBox="0 0 256 256"><path d="M216 104H102.09L210 75.51a8 8 0 0 0 5.68-9.84l-8.16-30a15.93 15.93 0 0 0-19.42-11.13L35.81 64.74a15.75 15.75 0 0 0-9.7 7.4a15.5 15.5 0 0 0-1.55 12L32 111.56V200a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16v-88a8 8 0 0 0-8-8m-23.84-64l6 22.07L164.57 71l-28.13-16.28ZM77.55 70.27l28.12 16.24l-59.6 15.73l-6-22.08Z"/></symbol>
+</svg>
+
+  <!-- Umgebungslicht hinter der App -->
+  <div class="ambient" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
+
+  <!-- ═══ SPERRBILDSCHIRM ═══ -->
+  <section class="lock" id="lock" aria-label="Entsperren">
+    <div class="lock-inner">
+      <div class="lock-head">
+        <svg class="glyph" viewBox="0 0 64 64" aria-hidden="true">
+          <g class="shackle"><path d="M21 30V21a11 11 0 0 1 22 0v9" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></g>
+          <rect x="11" y="28" width="42" height="30" rx="10" fill="currentColor"/>
+          <use href="#i-heart-fill" x="25" y="35" width="14" height="14" fill="#ff375f"/>
         </svg>
+        <h1 class="wordmark">MY<em>private</em>COLLECTION</h1>
+        <p class="lock-sub" id="lockSub" role="status">Code eingeben</p>
+        <div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
-      <h1 class="lock-title">MY<span>private</span>COLLECTION</h1>
-      <p class="lock-sub">Privat &amp; geschützt · 18+</p>
-      <form class="lock-form" id="lockForm" autocomplete="off">
-        <input
-          type="password"
-          id="lockInput"
-          class="lock-input"
-          placeholder="Passwort eingeben"
-          inputmode="numeric"
-          autocomplete="off"
-          aria-label="Passwort"
-        />
-        <button type="submit" class="lock-submit">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-          Entsperren
-        </button>
-      </form>
-      <p class="lock-error" id="lockError" role="alert"></p>
+
+      <div class="keypad" id="keypad">
+        <button type="button" class="key" data-k="1" aria-label="1"><b>1</b><small>&nbsp;</small></button>
+        <button type="button" class="key" data-k="2" aria-label="2"><b>2</b><small>ABC</small></button>
+        <button type="button" class="key" data-k="3" aria-label="3"><b>3</b><small>DEF</small></button>
+        <button type="button" class="key" data-k="4" aria-label="4"><b>4</b><small>GHI</small></button>
+        <button type="button" class="key" data-k="5" aria-label="5"><b>5</b><small>JKL</small></button>
+        <button type="button" class="key" data-k="6" aria-label="6"><b>6</b><small>MNO</small></button>
+        <button type="button" class="key" data-k="7" aria-label="7"><b>7</b><small>PQRS</small></button>
+        <button type="button" class="key" data-k="8" aria-label="8"><b>8</b><small>TUV</small></button>
+        <button type="button" class="key" data-k="9" aria-label="9"><b>9</b><small>WXYZ</small></button>
+        <span class="key-gap" aria-hidden="true"></span>
+        <button type="button" class="key" data-k="0" aria-label="0"><b>0</b></button>
+        <button type="button" class="key key-del" id="keyDel" aria-label="Löschen"><svg class="ic"><use href="#i-backspace"/></svg></button>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ═══ APP (hidden until unlock) ═══ -->
-  <div class="app" id="app" hidden>
+  <!-- ═══ APP ═══ -->
+  <div class="app" id="app" hidden inert>
 
-    <!-- Header -->
-    <header class="topbar" id="topbar">
-      <div class="topbar-inner">
-        <button class="brand-btn" id="brandBtn" aria-label="Sammlung sperren">
-          <svg class="brand-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="3" y="11" width="18" height="11" rx="2.5"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          <span class="brand-text">MY<em>private</em>COLLECTION</span>
-        </button>
-
-        <div class="topbar-right">
-          <span class="count-chip" id="countChip"></span>
-
-          <!-- Segmented control -->
-          <div class="seg-ctrl" role="group" aria-label="Anzeigemodus">
-            <button class="seg-btn active" id="gridBtn" aria-pressed="true" aria-label="Rasteransicht">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-                <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-                <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-                <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-              </svg>
-              <span>Grid</span>
-            </button>
-            <button class="seg-btn" id="swipeBtn" aria-pressed="false" aria-label="TikTok-Modus">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="5" y="2" width="14" height="20" rx="2"/>
-                <line x1="12" y1="17" x2="12.01" y2="17" stroke-width="2.5"/>
-              </svg>
-              <span>Swipe</span>
-            </button>
-          </div>
-        </div>
+    <header class="nav" id="nav">
+      <div class="nav-bg" id="navBg"></div>
+      <div class="nav-row">
+        <span></span>
+        <button type="button" class="nav-title" id="navTitle" tabindex="-1">Sammlung</button>
+        <button type="button" class="round" id="lockBtn" aria-label="Sperren" title="Sperren"><svg class="ic"><use href="#i-lock-fill"/></svg></button>
       </div>
     </header>
 
-    <!-- ── GRID VIEW ── -->
-    <div class="view" id="gridView">
-
-      <!-- Search -->
-      <div class="search-area">
-        <div class="search-pill">
-          <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input
-            type="search"
-            id="searchInput"
-            class="search-input"
-            placeholder="Sammlung durchsuchen…"
-            autocomplete="off"
-            enterkeyhint="search"
-            aria-label="Videos suchen"
-          />
-          <button id="clearBtn" class="search-clear" aria-label="Suche löschen" hidden>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                 stroke-linecap="round" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Sort control -->
-        <div class="sort-seg" role="group" aria-label="Sortierung">
-          <button class="sort-btn active" id="sortAscBtn" data-sort="asc" aria-pressed="true" aria-label="Nach Nummer aufsteigend sortieren" title="Nach Nummer aufsteigend sortieren">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m3 8 4-4 4 4"/>
-              <path d="M7 4v16"/>
-              <path d="M11 12h4"/>
-              <path d="M11 16h7"/>
-              <path d="M11 20h10"/>
-            </svg>
-          </button>
-          <button class="sort-btn" id="sortDescBtn" data-sort="desc" aria-pressed="false" aria-label="Nach Nummer absteigend sortieren" title="Nach Nummer absteigend sortieren">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m3 16 4 4 4-4"/>
-              <path d="M7 20V4"/>
-              <path d="M11 4h10"/>
-              <path d="M11 8h7"/>
-              <path d="M11 12h4"/>
-            </svg>
-          </button>
-          <button class="sort-btn" id="sortRandomBtn" data-sort="random" aria-pressed="false" aria-label="Zufällig sortieren" title="Zufällig sortieren">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.8-1.1 2-1.7 3.3-1.7H22"/>
-              <path d="m18 2 4 4-4 4"/>
-              <path d="M2 6h1.4c1.3 0 2.5.6 3.3 1.7l.8 1.1"/>
-              <path d="m18 14 4 4-4 4"/>
-              <path d="M8.6 15.3c.8 1.1 2 1.7 3.3 1.7H22"/>
-            </svg>
-          </button>
+    <main class="page" id="page">
+      <div class="large" id="large">
+        <div class="large-in" id="largeIn">
+          <p class="eyebrow">MYprivateCOLLECTION</p>
+          <h2 id="largeTitle">Sammlung</h2>
+          <p class="sub" id="subtitle" aria-live="polite">&nbsp;</p>
         </div>
       </div>
 
-      <p class="grid-status" id="gridStatus"></p>
+      <div class="grid" id="grid"></div>
 
-      <div class="card-grid" id="cardGrid"></div>
-
-      <nav class="page-nav" id="pageNav" aria-label="Seitennavigation"></nav>
-    </div>
-
-    <!-- ── SWIPE / TIKTOK VIEW ── -->
-    <div class="swipe-view" id="swipeView" hidden aria-hidden="true">
-
-      <!-- Counter + Close button -->
-      <div class="swipe-hud">
-        <span class="swipe-counter" id="swipeCounter">1 / 0</span>
-        <button class="swipe-close" id="swipeClose" aria-label="Zurück zur Rasteransicht">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-               stroke-linecap="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
+      <div class="empty" id="empty" hidden>
+        <div class="empty-icon"><svg class="ic" id="emptyIcon"><use href="#i-search"/></svg></div>
+        <h3 id="emptyTitle">Keine Treffer</h3>
+        <p id="emptyText"></p>
       </div>
+    </main>
 
-      <!-- Scroll container (snaps vertically) -->
-      <div class="swipe-track" id="swipeTrack" role="feed" aria-label="Videos"></div>
+    <nav class="dock" id="dock" aria-label="Navigation">
+      <div class="dock-inner">
+        <div class="dock-main" id="dockMain">
+          <div class="tabs glass" id="tabs" role="tablist" style="--i:0">
+            <span class="tab-thumb" aria-hidden="true"></span>
+            <button type="button" class="tab" role="tab" data-tab="all" aria-selected="true">
+              <svg class="ic ic-off"><use href="#i-grid"/></svg><svg class="ic ic-on"><use href="#i-grid-fill"/></svg>
+              <span>Sammlung</span>
+            </button>
+            <button type="button" class="tab" role="tab" data-tab="fav" aria-selected="false">
+              <svg class="ic ic-off"><use href="#i-heart"/></svg><svg class="ic ic-on"><use href="#i-heart-fill"/></svg>
+              <span>Favoriten</span>
+            </button>
+          </div>
+          <button type="button" class="bubble glass" id="luckyBtn" aria-label="Zufälliges Video" title="Zufall"><svg class="ic"><use href="#i-shuffle"/></svg></button>
+          <button type="button" class="bubble glass" id="searchBtn" aria-label="Suchen" title="Suchen"><svg class="ic"><use href="#i-search"/></svg></button>
+        </div>
 
-      <!-- First-time hint -->
-      <div class="swipe-hint" id="swipeHint" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <polyline points="5 12 12 5 19 12"/>
-        </svg>
-        <span>Wischen zum nächsten Video</span>
+        <form class="dock-search" id="dockSearch" role="search" autocomplete="off">
+          <label class="field glass">
+            <svg class="ic"><use href="#i-search"/></svg>
+            <input type="search" id="q" placeholder="Titel, Beschreibung, Kanal" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Sammlung durchsuchen" />
+            <button type="button" class="clear" id="clearBtn" aria-label="Eingabe löschen" hidden><svg class="ic"><use href="#i-x-circle"/></svg></button>
+          </label>
+          <button type="button" class="bubble glass" id="closeSearch" aria-label="Suche schließen"><svg class="ic"><use href="#i-x"/></svg></button>
+        </form>
       </div>
-    </div>
-
-  </div><!-- /app -->
-
-  <!-- ═══ PRIVACY ACTION SHEET ═══ -->
-  <div class="sheet-backdrop" id="sheetBackdrop" aria-hidden="true"></div>
-  <div class="action-sheet" id="actionSheet" role="dialog" aria-modal="true"
-       aria-label="Video öffnen" hidden>
-    <div class="sheet-handle" aria-hidden="true"></div>
-    <p class="sheet-title" id="sheetTitle"></p>
-
-    <div class="sheet-actions">
-      <!-- Open directly (normal) -->
-      <a class="sheet-btn sheet-btn--primary" id="sheetOpen" target="_blank"
-         rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-          <polyline points="15 3 21 3 21 9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
-        In Safari öffnen
-      </a>
-
-      <!-- Copy link (paste in private tab) -->
-      <button class="sheet-btn" id="sheetCopy">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="9" y="9" width="13" height="13" rx="2"/>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-        </svg>
-        Link kopieren → Privat einfügen
-      </button>
-
-      <!-- Firefox private -->
-      <a class="sheet-btn" id="sheetFirefox"
-         rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 8v4l3 3"/>
-        </svg>
-        In Firefox Privat öffnen
-      </a>
-    </div>
-
-    <button class="sheet-cancel" id="sheetCancel">Abbrechen</button>
+    </nav>
   </div>
 
-  <!-- Copy-toast -->
-  <div class="copy-toast" id="copyToast" role="status" aria-live="polite">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <polyline points="20 6 9 17 4 12"/>
-    </svg>
-    Link kopiert — in privatem Tab einfügen
-  </div>
-
-  <!-- ═══ FLAG BAR (Löschanfrage sammeln) ═══ -->
-  <div class="flag-bar" id="flagBar">
-    <span class="flag-bar-count">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
-        <line x1="4" y1="22" x2="4" y2="15"/>
-      </svg>
-      <span id="flagBarCount">0 markiert</span>
-    </span>
-    <div class="flag-bar-actions">
-      <button class="flag-bar-discard" id="flagBarDiscard" aria-label="Verwerfen">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
-             stroke-linecap="round" aria-hidden="true">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-        <span>Verwerfen</span>
-      </button>
-      <button class="flag-bar-send" id="flagBarSend" aria-label="Anfrage senden">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-        <span>Anfrage senden</span>
-      </button>
+  <!-- ═══ KONTEXTMENÜ (langes Drücken) ═══ -->
+  <div class="peek" id="peek" hidden>
+    <div class="peek-scrim" id="peekScrim"></div>
+    <div class="peek-card" id="peekCard" aria-hidden="true"></div>
+    <div class="peek-menu glass-strong" id="peekMenu" role="menu" aria-label="Aktionen">
+      <div class="peek-info"><h3 id="peekTitle"></h3><p id="peekDesc"></p></div>
+      <a class="act" id="peekOpen" role="menuitem" target="_blank" rel="noopener"><span>Öffnen</span><svg class="ic"><use href="#i-open"/></svg></a>
+      <button type="button" class="act" id="peekFav" role="menuitem"><span id="peekFavLabel">Zu Favoriten</span><svg class="ic"><use href="#i-heart"/></svg></button>
+      <button type="button" class="act" id="peekCopy" role="menuitem"><span>Link kopieren</span><svg class="ic"><use href="#i-link"/></svg></button>
+      <button type="button" class="act" id="peekShare" role="menuitem" hidden><span>Teilen</span><svg class="ic"><use href="#i-share"/></svg></button>
     </div>
   </div>
 
-  <!-- Flag confirm sheet -->
-  <div class="sheet-backdrop" id="flagBackdrop" aria-hidden="true"></div>
-  <div class="action-sheet" id="flagConfirmSheet" role="dialog" aria-modal="true"
-       aria-label="Löschanfrage senden" hidden>
-    <div class="sheet-handle" aria-hidden="true"></div>
-    <p class="sheet-title" id="flagConfirmTitle"></p>
-
-    <div class="sheet-actions">
-      <button class="sheet-btn sheet-btn--primary" id="flagConfirmSend">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
-        Anfrage senden
-      </button>
+  <!-- ═══ ZUFALL ═══ -->
+  <div class="lucky" id="lucky" hidden>
+    <div class="lucky-scrim" id="luckyScrim"></div>
+    <div class="lucky-sheet glass-strong" id="luckySheet" role="dialog" aria-modal="true" aria-label="Zufälliges Video">
+      <div class="lucky-grab" id="luckyGrab">
+        <i class="grabber" aria-hidden="true"></i>
+        <div class="lucky-stage" id="luckyStage">
+          <img id="luckyImg" alt="" draggable="false" />
+          <i class="lucky-shine" aria-hidden="true"></i>
+        </div>
+      </div>
+      <p class="lucky-chan" id="luckyChan">&nbsp;</p>
+      <h3 class="lucky-title" id="luckyTitle">&nbsp;</h3>
+      <div class="lucky-actions">
+        <a class="btn primary" id="luckyOpen" target="_blank" rel="noopener"><svg class="ic"><use href="#i-open"/></svg><span>Öffnen</span></a>
+        <button type="button" class="btn" id="luckyAgain"><svg class="ic"><use href="#i-again"/></svg><span>Nochmal</span></button>
+      </div>
+      <button type="button" class="lucky-x round" id="luckyClose" aria-label="Schließen"><svg class="ic"><use href="#i-x"/></svg></button>
     </div>
-
-    <button class="sheet-cancel" id="flagConfirmCancel">Abbrechen</button>
   </div>
 
-  <!-- Flag toast (Erfolg/Fehler) -->
-  <div class="copy-toast" id="flagToast" role="status" aria-live="polite"></div>
+  <div class="toast glass-strong" id="toast" role="status" aria-live="polite"><svg class="ic"><use href="#i-check"/></svg><span id="toastText"></span></div>
 
-  <script src="script_cleaned.js?v=20260617"></script>
-  <script src="app.js?v=20260818"></script>
+  <!-- misst Safe-Area-Abstände in Pixeln -->
+  <i class="safe-probe" id="safeProbe" aria-hidden="true"></i>
+  <!-- iOS-Haptik: ein Schalter, der per Skript "gedrückt" wird -->
+  <label class="haptic" id="hapticLabel" aria-hidden="true"><input type="checkbox" switch tabindex="-1" /></label>
+
+  <noscript><p style="position:fixed;inset:0;display:grid;place-items:center;color:#fff;background:#000;z-index:99">JavaScript wird benötigt.</p></noscript>
+
+  <script src="script_cleaned.js?v=20260921"></script>
+  <script src="app.js?v=20260921"></script>
 </body>
 </html>
