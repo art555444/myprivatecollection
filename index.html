@@ -15,7 +15,7 @@
   <link rel="apple-touch-icon" href="icon.png" />
   <link rel="icon" type="image/png" href="icon-192.png" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css?v=20260921" />
+  <link rel="stylesheet" href="style.css?v=20260923" />
 </head>
 <body class="is-locked">
 
@@ -48,30 +48,32 @@
   <!-- ═══ SPERRBILDSCHIRM ═══ -->
   <section class="lock" id="lock" aria-label="Entsperren">
     <div class="lock-inner">
-      <div class="lock-head">
-        <svg class="glyph" viewBox="0 0 64 64" aria-hidden="true">
-          <g class="shackle"><path d="M21 30V21a11 11 0 0 1 22 0v9" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></g>
-          <rect x="11" y="28" width="42" height="30" rx="10" fill="currentColor"/>
-          <use href="#i-heart-fill" x="25" y="35" width="14" height="14" fill="#ff375f"/>
-        </svg>
-        <h1 class="wordmark">MY<em>private</em>COLLECTION</h1>
-        <p class="lock-sub" id="lockSub" role="status">Code eingeben</p>
-        <div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i></div>
-      </div>
+      <div class="lock-card">
+        <div class="lock-head">
+          <svg class="glyph" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="shackle"><path d="M21 30V21a11 11 0 0 1 22 0v9" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/></g>
+            <rect x="11" y="28" width="42" height="30" rx="11" fill="currentColor"/>
+            <use href="#i-heart-fill" x="25.5" y="36" width="13" height="13" fill="#ff375f"/>
+          </svg>
+          <h1 class="wordmark">MY<em>private</em>COLLECTION</h1>
+          <p class="lock-sub" id="lockSub" role="status">Code eingeben</p>
+          <div class="dots" id="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        </div>
 
-      <div class="keypad" id="keypad">
-        <button type="button" class="key" data-k="1" aria-label="1"><b>1</b><small>&nbsp;</small></button>
-        <button type="button" class="key" data-k="2" aria-label="2"><b>2</b><small>ABC</small></button>
-        <button type="button" class="key" data-k="3" aria-label="3"><b>3</b><small>DEF</small></button>
-        <button type="button" class="key" data-k="4" aria-label="4"><b>4</b><small>GHI</small></button>
-        <button type="button" class="key" data-k="5" aria-label="5"><b>5</b><small>JKL</small></button>
-        <button type="button" class="key" data-k="6" aria-label="6"><b>6</b><small>MNO</small></button>
-        <button type="button" class="key" data-k="7" aria-label="7"><b>7</b><small>PQRS</small></button>
-        <button type="button" class="key" data-k="8" aria-label="8"><b>8</b><small>TUV</small></button>
-        <button type="button" class="key" data-k="9" aria-label="9"><b>9</b><small>WXYZ</small></button>
-        <span class="key-gap" aria-hidden="true"></span>
-        <button type="button" class="key" data-k="0" aria-label="0"><b>0</b></button>
-        <button type="button" class="key key-del" id="keyDel" aria-label="Löschen"><svg class="ic"><use href="#i-backspace"/></svg></button>
+        <div class="keypad" id="keypad">
+          <button type="button" class="key" data-k="1" aria-label="1"><b>1</b></button>
+          <button type="button" class="key" data-k="2" aria-label="2"><b>2</b></button>
+          <button type="button" class="key" data-k="3" aria-label="3"><b>3</b></button>
+          <button type="button" class="key" data-k="4" aria-label="4"><b>4</b></button>
+          <button type="button" class="key" data-k="5" aria-label="5"><b>5</b></button>
+          <button type="button" class="key" data-k="6" aria-label="6"><b>6</b></button>
+          <button type="button" class="key" data-k="7" aria-label="7"><b>7</b></button>
+          <button type="button" class="key" data-k="8" aria-label="8"><b>8</b></button>
+          <button type="button" class="key" data-k="9" aria-label="9"><b>9</b></button>
+          <span class="key-gap" aria-hidden="true"></span>
+          <button type="button" class="key" data-k="0" aria-label="0"><b>0</b></button>
+          <button type="button" class="key key-del" id="keyDel" aria-label="Löschen"><svg class="ic"><use href="#i-backspace"/></svg></button>
+        </div>
       </div>
     </div>
   </section>
@@ -94,6 +96,14 @@
           <p class="eyebrow">MYprivateCOLLECTION</p>
           <h2 id="largeTitle">Sammlung</h2>
           <p class="sub" id="subtitle" aria-live="polite">&nbsp;</p>
+        </div>
+      </div>
+
+      <div class="sortbar" id="sortBar">
+        <div class="seg" id="sortSeg" role="group" aria-label="Sortierung" style="--i:0">
+          <span class="seg-thumb" aria-hidden="true"></span>
+          <button type="button" class="seg-btn" data-sort="new" aria-pressed="true">Neuste</button>
+          <button type="button" class="seg-btn" data-sort="old" aria-pressed="false">Älteste</button>
         </div>
       </div>
 
@@ -179,7 +189,7 @@
 
   <noscript><p style="position:fixed;inset:0;display:grid;place-items:center;color:#fff;background:#000;z-index:99">JavaScript wird benötigt.</p></noscript>
 
-  <script src="script_cleaned.js?v=20260921"></script>
-  <script src="app.js?v=20260921"></script>
+  <script src="script_cleaned.js?v=20260923"></script>
+  <script src="app.js?v=20260923"></script>
 </body>
 </html>

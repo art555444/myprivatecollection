@@ -9,6 +9,7 @@
   // ── Konstanten ────────────────────────────────────────────────
   const PW = '555';
   const FAV_KEY = 'mpc_favorites';
+  const SORT_KEY = 'mpc_sort';
   const FALLBACK = 'images/no-thumbnail.jpg';
   const CHANNELS = {
     pornhub: 'Pornhub', xhamster: 'xHamster', xnxx: 'XNXX', xvideos: 'XVideos',
@@ -25,7 +26,7 @@
   [
     'lock', 'lockSub', 'dots', 'keypad', 'keyDel',
     'app', 'nav', 'navBg', 'navTitle', 'lockBtn',
-    'page', 'large', 'largeIn', 'largeTitle', 'subtitle', 'grid',
+    'page', 'large', 'largeIn', 'largeTitle', 'subtitle', 'sortBar', 'sortSeg', 'grid',
     'empty', 'emptyIcon', 'emptyTitle', 'emptyText',
     'dock', 'dockMain', 'tabs', 'luckyBtn', 'searchBtn', 'dockSearch', 'q', 'clearBtn', 'closeSearch',
     'peek', 'peekScrim', 'peekCard', 'peekMenu', 'peekTitle', 'peekDesc', 'peekOpen', 'peekFav', 'peekFavLabel', 'peekCopy', 'peekShare',
@@ -37,6 +38,7 @@
   const S = {
     tab: 'all',
     q: '',
+    sort: loadSort(),
     list: [],
     favs: loadFavs(),
     scroll: { all: 0, fav: 0 },
@@ -45,6 +47,7 @@
     locked: true,
   };
   let items = [];
+  let ordered = [];
   const byId = new Map();
 
   // ═════════════════════════════════════════════════════════════
@@ -133,6 +136,19 @@
       .filter((it) => it.url)
       .sort((a, b) => b.n - a.n); // neueste zuerst
     items.forEach((it) => byId.set(it.id, it));
+    setOrdered();
+  }
+
+  // `ordered` spiegelt die gewählte Sortierung: Neuste = höchste Nummer zuerst
+  function setOrdered() {
+    ordered = S.sort === 'old' ? items.slice().reverse() : items;
+  }
+
+  function loadSort() {
+    try { return localStorage.getItem(SORT_KEY) === 'old' ? 'old' : 'new'; } catch (_) { return 'new'; }
+  }
+  function saveSort() {
+    try { localStorage.setItem(SORT_KEY, S.sort); } catch (_) { /* nur diese Sitzung */ }
   }
 
   function loadFavs() {
@@ -298,8 +314,8 @@
       img.src = FALLBACK;
     }, true);
 
-    E.grid.innerHTML = items.map(cardHTML).join('');
-    [...E.grid.children].forEach((el, i) => { items[i].el = el; });
+    E.grid.innerHTML = ordered.map(cardHTML).join('');
+    [...E.grid.children].forEach((el, i) => { ordered[i].el = el; });
     E.grid.querySelectorAll('.card-img').forEach((img) => { if (img.complete && img.naturalWidth) img.classList.add('loaded'); });
     S.built = true;
   }
@@ -348,7 +364,7 @@
     if (!S.built) return;
     const terms = norm(S.q).split(/\s+/).filter(Boolean);
     const list = [];
-    for (const it of items) {
+    for (const it of ordered) {
       const show = (S.tab === 'all' || S.favs.has(it.id)) && terms.every((t) => it.key.includes(t));
       if (show) {
         list.push(it);
@@ -891,6 +907,35 @@
     onScroll();
   }
 
+  function setSort(sort) {
+    if (sort !== 'new' && sort !== 'old') return;
+    if (sort === S.sort) return;
+    haptic('tap');
+    S.sort = sort;
+    saveSort();
+    setOrdered();
+    E.sortSeg.style.setProperty('--i', sort === 'old' ? '1' : '0');
+    E.sortSeg.querySelectorAll('.seg-btn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.sort === sort)));
+    if (S.built) {
+      // Kacheln in der neuen Reihenfolge einhängen (Bilder bleiben geladen)
+      const frag = document.createDocumentFragment();
+      ordered.forEach((it) => frag.appendChild(it.el));
+      E.grid.appendChild(frag);
+      apply({ reveal: true });
+      window.scrollTo(0, 0);
+      onScroll();
+    }
+  }
+
+  function initSort() {
+    E.sortSeg.style.setProperty('--i', S.sort === 'old' ? '1' : '0');
+    E.sortSeg.querySelectorAll('.seg-btn').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.sort === S.sort)));
+    E.sortSeg.addEventListener('click', (e) => {
+      const b = e.target.closest('.seg-btn');
+      if (b) setSort(b.dataset.sort);
+    });
+  }
+
   let applyRaf = 0;
   function scheduleApply() {
     cancelAnimationFrame(applyRaf);
@@ -964,6 +1009,7 @@
     initPeek();
     initLucky();
     initDock();
+    initSort();
 
     E.navTitle.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }));
     window.addEventListener('scroll', onScroll, { passive: true });
