@@ -2944,7 +2944,7 @@ const videos = [
   },
 {
     id: "custom-452",
-    title: "Double pissing in shower: reality Two amateur beauties pee side by side in the bathroom. Realistic everyday life",
+    title: "Doppeltes Pissen in der Dusche: Realität Zwei Amateurschönheiten pinkeln nebeneinander im Badezimmer. Realistischer Alltag",
     description: "Double pissing in shower: reality Two amateur beauties pee side by side in the bathroom. Realistic everyday life",
     channel: "Pornhub",
     platform: "custom",
@@ -2953,7 +2953,7 @@ const videos = [
   },
 {
     id: "custom-453",
-    title: "Gentle Lesbian Sex in Shower, Pissing, Teens and MILF Big Tits",
+    title: "Sanfter Lesbensex unter der Dusche, Pissen, Teenager und MILF mit großen Titten",
     description: "Gentle Lesbian Sex in Shower, Pissing, Teens and MILF Big Tits",
     channel: "Pornhub",
     platform: "custom",
@@ -2962,7 +2962,7 @@ const videos = [
   },
 {
     id: "custom-454",
-    title: "Intense Ass Fucking That Made Her Pee and Cum",
+    title: "Intensiver Arschfick, der sie zum Pinkeln und Abspritzen brachte",
     description: "Intense Ass Fucking That Made Her Pee and Cum",
     channel: "Pornhub",
     platform: "custom",
@@ -2971,7 +2971,7 @@ const videos = [
   },
 {
     id: "custom-455",
-    title: "She's rubbing her pussy against the table so her stepbrother will fuck her. She squirted all over the table — pinkloving",
+    title: "Sie reibt ihre Muschi am Tisch, damit ihr Stiefbruder sie ficken kann. Sie spritzte über den ganzen Tisch – Pinkloving",
     description: "She's rubbing her pussy against the table so her stepbrother will fuck her. She squirted all over the table — pinkloving",
     channel: "Pornhub",
     platform: "custom",
@@ -2980,7 +2980,7 @@ const videos = [
   },
 {
     id: "custom-456",
-    title: "OMG Don't STOP Please! Stepbrother Rub my Pussy until I reach my orgasm, I beg you...",
+    title: "OMG, hör bitte nicht auf! Stiefbruder Reibe meine Muschi, bis ich meinen Orgasmus erreiche, ich flehe dich an...",
     description: "OMG Don't STOP Please! Stepbrother Rub my Pussy until I reach my orgasm, I beg you...",
     channel: "Pornhub",
     platform: "custom",
@@ -2989,7 +2989,7 @@ const videos = [
   },
 {
     id: "custom-457",
-    title: "I'M CUMMING! Humping Orgasms Compilation!",
+    title: "Ich komme! Humping-Orgasmen-Zusammenstellung!",
     description: "I'M CUMMING! Humping Orgasms Compilation!",
     channel: "Pornhub",
     platform: "custom",
@@ -2998,7 +2998,7 @@ const videos = [
   },
 {
     id: "custom-458",
-    title: "I Like Swallow",
+    title: "Ich mag Schlucken",
     description: "I Like Swallow",
     channel: "Pornhub",
     platform: "custom",
@@ -3007,7 +3007,7 @@ const videos = [
   },
 {
     id: "custom-459",
-    title: "Hot Girls Cumshot Compilation- Cum Swallows, Facials and Creampies",
+    title: "Hot Girls Cumshot Compilation – Sperma schlucken, Gesichtsbehandlungen und Creampies",
     description: "Hot Girls Cumshot Compilation- Cum Swallows, Facials and Creampies",
     channel: "Pornhub",
     platform: "custom",
@@ -3016,7 +3016,7 @@ const videos = [
   },
 {
     id: "custom-460",
-    title: "Perfect 18 yo Step Sister Let Me Fuck Her Pussy! Cum Compilation",
+    title: "Perfekte 18-jährige Stiefschwester, lass mich ihre Muschi ficken! Sperma-Zusammenstellung",
     description: "Perfect 18 yo Step Sister Let Me Fuck Her Pussy! Cum Compilation",
     channel: "Pornhub",
     platform: "custom",
@@ -3025,7 +3025,7 @@ const videos = [
   },
 {
     id: "custom-461",
-    title: "Eating sperm compilation 3",
+    title: "Sperma essen Zusammenstellung 3",
     description: "Eating sperm compilation 3",
     channel: "Pornhub",
     platform: "custom",
@@ -3034,7 +3034,7 @@ const videos = [
   },
 {
     id: "custom-462",
-    title: "Small pussy filled with sperm. Amateur compilation",
+    title: "Kleine Muschi mit Sperma gefüllt. Amateur-Zusammenstellung",
     description: "Small pussy filled with sperm. Amateur compilation",
     channel: "Pornhub",
     platform: "custom",
@@ -3043,7 +3043,7 @@ const videos = [
   },
 {
     id: "custom-463",
-    title: "Gooner Slut Pulls Out Your Cock And Covers Her Clit In Your Cum",
+    title: "Gooner Slut zieht deinen Schwanz heraus und bedeckt ihre Klitoris mit deinem Sperma",
     description: "Gooner Slut Pulls Out Your Cock And Covers Her Clit In Your Cum",
     channel: "Pornhub",
     platform: "custom",
@@ -3052,7 +3052,7 @@ const videos = [
   },
 {
     id: "custom-464",
-    title: "I Won't Let Him Penetrate Me... And He Still Came Twice In A Row Rubbing His Dick On My Thighs And Pussy, I Love It!",
+    title: "Ich werde nicht zulassen, dass er in mich eindringt ... Und er kam immer noch zweimal hintereinander und rieb seinen Schwanz an meinen Oberschenkeln und meiner Muschi, ich liebe es!",
     description: "I Won't Let Him Penetrate Me... And He Still Came Twice In A Row Rubbing His Dick On My Thighs And Pussy, I Love It!",
     channel: "Pornhub",
     platform: "custom",
@@ -3061,93 +3061,120 @@ const videos = [
   },
 {
     id: "custom-465",
-    title: "Real Hot cumshot compilation when he fucked my sexy thighs",
+    title: "Echt heiße Cumshot-Zusammenstellung, als er meine sexy Schenkel fickte",
     description: "Real Hot cumshot compilation when he fucked my sexy thighs",
     channel: "Pornhub",
     platform: "custom",
     thumbnail: "images/thumbs/custom-465.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=65002efdb3ea4"
   },
-  {
+{
     id: "custom-466",
-    title: "Squirting Orgasm",
+    title: "Spritzender Orgasmus",
     description: "Squirting Orgasm",
     channel: "Auto",
     platform: "custom",
     thumbnail: "images/thumbs/custom-466.jpg",
     url: "https://www.xnxx.com/video-1huu8a66/spritzorgasmus"
   },
-  {
+{
     id: "custom-467",
-    title: "Loads of CUM - PEGGING Orgasm Compilation",
+    title: "Jede Menge Sperma – PEGGING-Orgasmus-Zusammenstellung",
     description: "Loads of CUM - PEGGING Orgasm Compilation",
     channel: "Auto",
     platform: "custom",
     thumbnail: "images/thumbs/custom-467.jpg",
     url: "https://www.xnxx.com/video-1e0met04/jede_menge_sperma_-_pegging-orgasmus-zusammenstellung"
   },
-  {
+{
     id: "custom-468",
-    title: "I fuck my pussy with a fast fuckmachine at top speed and end up squirting! screaming moaning orgasm in online chat",
+    title: "Ich ficke meine Muschi mit einer schnellen Fickmaschine in Höchstgeschwindigkeit und spritze am Ende ab! schreiender, stöhnender Orgasmus im Online-Chat",
     description: "I fuck my pussy with a fast fuckmachine at top speed and end up squirting! screaming moaning orgasm in online chat",
     channel: "Auto",
     platform: "custom",
     thumbnail: "images/thumbs/custom-468.jpg",
     url: "https://www.xnxx.com/video-19lo2jcc/ich_ficke_meine_muschi_mit_einer_schnellen_fickmaschine_in_hochstgeschwindigkeit_und_spritze_am_ende_schreiender_stohnender_orgasmus_im_online-chat"
   },
-  {
+{
     id: "custom-469",
-    title: "More Than 30 Orgasm In One Video !",
+    title: "Mehr als 30 Orgasmen in einem Video!",
     description: "More Than 30 Orgasm In One Video !",
     channel: "Auto",
     platform: "custom",
     thumbnail: "images/thumbs/custom-469.jpg",
     url: "https://www.xnxx.com/video-1486xta2/mehr_als_30_orgasmen_in_einem_video_"
   },
-  {
+{
     id: "custom-470",
-    title: "Brunette Asian learning how to fuck",
+    title: "Brünette Asiatin lernt ficken",
     description: "Brunette Asian learning how to fuck",
     channel: "Auto",
     platform: "custom",
     thumbnail: "images/thumbs/custom-470.jpg",
     url: "https://www.xnxx.com/video-1g667d3e/brunette_asiatin_lernt_wie_man_fickt"
   },
-  {
+{
     id: "custom-471",
-    title: "My First SQUIRT",
+    title: "Mein erster SQUIRT",
     description: "My First SQUIRT",
     channel: "Pornhub",
     platform: "custom",
     thumbnail: "images/thumbs/custom-471.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=ph5b2bf05bea84b"
   },
-  {
+{
     id: "custom-472",
-    title: "I Fuck My StepSister And She Makes Me Cum Inside Her Pussy",
+    title: "Ich ficke meine Stiefschwester und sie bringt mich dazu, in ihre Muschi zu spritzen",
     description: "I Fuck My StepSister And She Makes Me Cum Inside Her Pussy",
     channel: "Pornhub",
     platform: "custom",
     thumbnail: "images/thumbs/custom-472.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=ph5fa4d22a641bd"
   },
-  {
+{
     id: "custom-473",
-    title: "Another Tinder Guy Destroyed My Tight Pussy Raw And Cume All Over It",
+    title: "Ein anderer Tinder-Typ hat meine enge Muschi roh zerstört und überall abgespritzt",
     description: "Another Tinder Guy Destroyed My Tight Pussy Raw And Cume All Over It",
     channel: "Pornhub",
     platform: "custom",
     thumbnail: "images/thumbs/custom-473.png",
     url: "https://de.pornhub.com/view_video.php?viewkey=6a4ef272e50b9"
   },
-  {
+{
     id: "custom-474",
-    title: "Hot cheerleader got fucked after school and couldn't stop cumming",
+    title: "Heiße Cheerleaderin wurde nach der Schule gefickt und konnte nicht aufhören zu kommen",
     description: "Hot cheerleader got fucked after school and couldn't stop cumming",
     channel: "Pornhub",
     platform: "custom",
     thumbnail: "images/thumbs/custom-474.jpg",
     url: "https://de.pornhub.com/view_video.php?viewkey=6800bdec26447"
+  },
+{
+    id: "custom-475",
+    title: "Ihn mit meinen wilden Gelüsten zu reiten ... ließ ihn heftig explodieren",
+    description: "Riding him with my wild desires .... made him explode hard",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-475.jpg",
+    url: "https://de.pornhub.com/view_video.php?viewkey=6ab5927ee7586"
+  },
+{
+    id: "custom-476",
+    title: "Heiße MILF lernte in aller Stille den Stiefbruder ihrer zierlichen Freundin Anabel Busty kennen. Nasser Sex beim Dirty Talk",
+    description: "Hot MILF quietly met the StepBro of her petite GF Anabel Busty. Wet Sex during Dirty Talk",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-476.jpg",
+    url: "https://de.pornhub.com/view_video.php?viewkey=6ab1459d91c1c"
+  },
+{
+    id: "custom-477",
+    title: "CHEEKYMZ ORGASMEN HART ZWEIMAL, FAMILIENTHERAPIE ANSEHEN",
+    description: "CHEEKYMZ ORGASMS HARD TWICE WATCHING FAMILY THERAPY",
+    channel: "Pornhub",
+    platform: "custom",
+    thumbnail: "images/thumbs/custom-477.jpg",
+    url: "https://de.pornhub.com/view_video.php?viewkey=69d0b00b2e053"
   }
 ];
 
